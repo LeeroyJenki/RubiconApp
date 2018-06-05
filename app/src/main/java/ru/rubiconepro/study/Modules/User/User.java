@@ -4,11 +4,6 @@ import ru.rubiconepro.study.Modules.Base.Base;
 import ru.rubiconepro.study.Modules.User.Model.UserModel;
 
 public class User extends Base {
-    @Override
-    public String getMainTable() {
-        return "User";
-    }
-
     /**
      * Получение текущего пользователя
      */

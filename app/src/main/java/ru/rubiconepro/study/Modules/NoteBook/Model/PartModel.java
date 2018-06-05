@@ -15,6 +15,11 @@ public class PartModel extends BaseModel implements Serializable {
         listNotes = new ArrayList<>();
     }
 
+    public PartModel(String name) {
+        title = name;
+        listNotes = new ArrayList<>();
+    }
+
     @Override
     public String toString() {
         return title;

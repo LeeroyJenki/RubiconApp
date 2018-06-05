@@ -9,27 +9,22 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.List;
-
+import ru.rubiconepro.study.Modules.Base.Dialog.PromptDialog;
+import ru.rubiconepro.study.Modules.Base.Interface.IPromptDialog;
 import ru.rubiconepro.study.Modules.NoteBook.Layout.Part;
-import ru.rubiconepro.study.Modules.NoteBook.Layout.PartAdd;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
-import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
+import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 import ru.rubiconepro.study.R;
 
 public class PartAdapter extends BaseAdapter implements View.OnClickListener {
 
     PartListModel data;
     Context context;
-
     LayoutInflater inflater;
+    boolean isEditable = false;
 
-    boolean isEditable;
-
-    public PartAdapter(PartListModel data, Context context) {
-        this.data = data;
+    public PartAdapter(Context context) {
+        this.data = NoteBook.instance.getModel();
         this.context = context;
 
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -37,6 +32,7 @@ public class PartAdapter extends BaseAdapter implements View.OnClickListener {
 
     public void setEditable(boolean editable) {
         isEditable = editable;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -99,10 +95,16 @@ public class PartAdapter extends BaseAdapter implements View.OnClickListener {
         notifyDataSetChanged();
     }
 
-    private void editElement(int position) {
-        Intent i = new Intent(context, PartAdd.class);
-        i.putExtra("position", position);
-        i.putExtra("model", data.items.get(position));
-        ((Part)context).startActivityForResult(i, 0);
+    private void editElement(final int position) {
+        new PromptDialog(context, "Изменение раздела", new IPromptDialog() {
+            @Override
+            public void dialogDone(boolean result, String text) {
+                if (!result)
+                    return;
+
+                data.items.get(position).title = text;
+                PartAdapter.this.notifyDataSetChanged();
+            }
+        }).setText(data.items.get(position).title).show();
     }
 }

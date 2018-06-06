@@ -2,53 +2,54 @@ package ru.rubiconepro.study.Modules.NoteBook.Layout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
+import ru.rubiconepro.study.Modules.NoteBook.Adapter.PartAdapter;
+import ru.rubiconepro.study.Modules.NoteBook.Const.IntentConst;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
-import ru.rubiconepro.study.R;
+import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 
-public class Note extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    List<PartModel> items;
-
-    ListView lv;
-    int position = -1;
+public class Note extends NoteBase {
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notes);
 
-        lv = findViewById(R.id.listWiewNotes);
-
-        Intent intnt = getIntent();
-        PartListModel ll = (PartListModel)intnt.getSerializableExtra("test");
-        items = ll.items;
-
-        //      items = new ArrayList<>();
-        fillList();
-
-        lv.setOnItemClickListener(this);
-    }
-
-    private void fillList() {
-        List<String> data = new ArrayList<>();
-        for (PartModel item : items) {
-            for (int j = 0; j < item.listNotes.size(); j++ ){
-                data.add(item.listNotes.get(j).title);
-            }
-
+        //Защита от програмиста
+        Intent currentIntent = getIntent();
+        if (!currentIntent.hasExtra(IntentConst.position)) {
+            Toast.makeText(this, "Не переданы параметры", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        lv.setAdapter(adapter);
+        position = currentIntent.getIntExtra(IntentConst.position, 0);
+    }
+
+    protected void createAdapter() {
+        PartModel model = NoteBook.instance.getPartByPosition(position);
+
+        if (model == null) {
+            Toast.makeText(this, "Попытка выбора несуществуюший категории", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //TODO ПЕРЕДЕЛАТЬ
+        adapter = new PartAdapter(this);
+    }
+
+    protected String getHeaderTitle() {
+        return "Записи";
+    }
+
+    protected String getButtonTitle() {
+        return "Создать запись";
+    }
+
+    protected void createElement(String text) {
+
     }
 
     @Override

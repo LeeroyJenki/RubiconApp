@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ru.rubiconepro.study.Modules.Base.Base;
 import ru.rubiconepro.study.Modules.Base.Dialog.PromptDialog;
 import ru.rubiconepro.study.Modules.Base.Interface.IPromptDialog;
 import ru.rubiconepro.study.Modules.NoteBook.Layout.Part;
@@ -16,23 +17,13 @@ import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 import ru.rubiconepro.study.R;
 
-public class PartAdapter extends BaseAdapter implements View.OnClickListener {
+public class PartAdapter extends IAdapter {
 
     PartListModel data;
-    Context context;
-    LayoutInflater inflater;
-    boolean isEditable = false;
 
     public PartAdapter(Context context) {
+        super(context);
         this.data = NoteBook.instance.getModel();
-        this.context = context;
-
-        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-
-    public void setEditable(boolean editable) {
-        isEditable = editable;
-        notifyDataSetChanged();
     }
 
     @Override
@@ -52,33 +43,12 @@ public class PartAdapter extends BaseAdapter implements View.OnClickListener {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.notebook_part_call, parent, false);
-        }
+        View v = super.getView(position, convertView, parent);
 
-        TextView label = convertView.findViewById(R.id.label);
-        Button btnDelete = convertView.findViewById(R.id.btnDelete);
-        Button btnEdit   = convertView.findViewById(R.id.btnEdit);
-
-        if (!isEditable) {
-            btnDelete.setVisibility(View.GONE);
-            btnEdit.setVisibility(View.GONE);
-        } else {
-            btnDelete.setVisibility(View.VISIBLE);
-            btnEdit.setVisibility(View.VISIBLE);
-        }
-
-        //Добавляем тагом позицию
-        btnDelete.setTag(position);
-        btnEdit.setTag(position);
-
-        //Вешаем обработчики
-        btnDelete.setOnClickListener(this);
-        btnEdit.setOnClickListener(this);
-
+        TextView label = v.findViewById(R.id.label);
         label.setText(data.items.get(position).toString());
 
-        return convertView;
+        return v;
     }
 
     @Override
@@ -96,7 +66,7 @@ public class PartAdapter extends BaseAdapter implements View.OnClickListener {
     }
 
     private void editElement(final int position) {
-        new PromptDialog(context, "Изменение раздела", new IPromptDialog() {
+        new PromptDialog(context, "Изменение элемента", new IPromptDialog() {
             @Override
             public void dialogDone(boolean result, String text) {
                 if (!result)

@@ -23,6 +23,11 @@ public class NoteBook extends Base {
         model.items.add(new PartModel(name));
     }
 
+    public PartModel getPartByPosition(int position) {
+        if (position < 0 || position >= model.items.size())
+            return null;
 
+        return model.items.get(position);
+    }
 
 }

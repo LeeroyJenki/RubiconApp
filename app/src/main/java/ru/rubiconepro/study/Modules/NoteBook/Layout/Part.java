@@ -1,27 +1,16 @@
 package ru.rubiconepro.study.Modules.NoteBook.Layout;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import ru.rubiconepro.study.Modules.Base.Dialog.PromptDialog;
 import ru.rubiconepro.study.Modules.Base.Interface.IPromptDialog;
 import ru.rubiconepro.study.Modules.NoteBook.Adapter.PartAdapter;
-import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
-import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 import ru.rubiconepro.study.R;
 

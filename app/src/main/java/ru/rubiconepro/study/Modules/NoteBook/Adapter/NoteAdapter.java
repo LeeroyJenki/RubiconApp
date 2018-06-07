@@ -55,7 +55,7 @@ public class NoteAdapter extends IAdapter  {
         View v = super.getView(position, convertView, parent);
 
         TextView label = v.findViewById(R.id.label);
-        label.setText(data.listNotes.get(position).toString());
+        label.setText(data.listNotes.get(position).title.toString());
 
         return v;
     }

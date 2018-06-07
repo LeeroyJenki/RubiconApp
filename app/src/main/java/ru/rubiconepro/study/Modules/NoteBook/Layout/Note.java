@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import ru.rubiconepro.study.Modules.NoteBook.Adapter.NoteAdapter;
 import ru.rubiconepro.study.Modules.NoteBook.Adapter.PartAdapter;
 import ru.rubiconepro.study.Modules.NoteBook.Const.IntentConst;
+import ru.rubiconepro.study.Modules.NoteBook.Model.NotesModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 
@@ -37,7 +39,7 @@ public class Note extends NoteBase {
         }
 
         //TODO ПЕРЕДЕЛАТЬ
-        adapter = new PartAdapter(this);
+        adapter = new NoteAdapter(this, position);
     }
 
     protected String getHeaderTitle() {
@@ -49,7 +51,11 @@ public class Note extends NoteBase {
     }
 
     protected void createElement(String text) {
-
+        NotesModel nm = new NotesModel();
+        nm.title = text;
+        nm.text = "";
+        nm.notesList.add(nm);
+        NoteBook.instance.addNote(nm, position);
     }
 
     @Override

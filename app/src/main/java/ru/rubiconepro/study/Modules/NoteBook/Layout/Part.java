@@ -21,7 +21,7 @@ public class Part extends NoteBase {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent i = new Intent(this, Note.class);
-        i.putExtra(IntentConst.position, position);
+        i.putExtra(IntentConst.positionP, position);
         startActivity(i);
     }
 

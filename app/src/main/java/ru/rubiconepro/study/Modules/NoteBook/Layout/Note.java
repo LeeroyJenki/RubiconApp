@@ -14,7 +14,7 @@ import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 
 public class Note extends NoteBase {
-    int position;
+    int position2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,24 +22,30 @@ public class Note extends NoteBase {
 
         //Защита от програмиста
         Intent currentIntent = getIntent();
-        if (!currentIntent.hasExtra(IntentConst.position)) {
+        if (!currentIntent.hasExtra(IntentConst.positionP)) {
             Toast.makeText(this, "Не переданы параметры", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        position = currentIntent.getIntExtra(IntentConst.position, 0);
+        position2 = currentIntent.getIntExtra(IntentConst.positionP, 0);
     }
 
     protected void createAdapter() {
-        PartModel model = NoteBook.instance.getPartByPosition(position);
+        PartModel model = NoteBook.instance.getPartByPosition(position2);
 
         if (model == null) {
             Toast.makeText(this, "Попытка выбора несуществуюший категории", Toast.LENGTH_SHORT).show();
             return;
         }
+        Intent currentIntent = getIntent();
+        if (!currentIntent.hasExtra(IntentConst.positionP)) {
+            Toast.makeText(this, "Не переданы параметры", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        position2 = currentIntent.getIntExtra(IntentConst.positionP, 0);
         //TODO ПЕРЕДЕЛАТЬ
-        adapter = new NoteAdapter(this, position);
+        adapter = new NoteAdapter(this, position2);
     }
 
     protected String getHeaderTitle() {
@@ -55,11 +61,13 @@ public class Note extends NoteBase {
         nm.title = text;
         nm.text = "";
         nm.notesList.add(nm);
-        NoteBook.instance.addNote(nm, position);
+        NoteBook.instance.addNote(nm, position2);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+//        Intent i = new Intent(this, Note.class);
+//        i.putExtra(IntentConst.position, position);
+//        startActivity(i);
     }
 }

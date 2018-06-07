@@ -48,7 +48,7 @@ public class NoteAdapter extends IAdapter  {
     @Override
     public long getItemId(int position) {
       //  return data.listNotes.get(position);
-        return  0;
+        return  1;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

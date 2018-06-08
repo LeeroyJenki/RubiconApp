@@ -18,11 +18,12 @@ import ru.rubiconepro.study.R;
 public class NoteAdapter extends IAdapter  {
     PartModel data;
     int position;
+    int positionPart;
 
     public NoteAdapter(Context context, int position) {
         super(context);
 
-        this.position = position;
+        this.positionPart = position;
         this.data = NoteBook.instance.getPartByPosition(position);
     }
 
@@ -47,8 +48,7 @@ public class NoteAdapter extends IAdapter  {
 
     @Override
     public long getItemId(int position) {
-      //  return data.listNotes.get(position);
-        return  0;
+        return  position;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

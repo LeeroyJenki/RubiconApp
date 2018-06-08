@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 
+import java.security.PublicKey;
+
 import ru.rubiconepro.study.R;
 
 public abstract class IAdapter extends BaseAdapter implements View.OnClickListener {
@@ -50,6 +52,10 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
         btnEdit.setOnClickListener(this);
 
         return convertView;
+    }
+
+    public void reloadData() {
+        this.notifyDataSetChanged();
     }
 
 }

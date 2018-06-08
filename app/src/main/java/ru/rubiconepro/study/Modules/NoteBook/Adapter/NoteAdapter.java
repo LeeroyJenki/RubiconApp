@@ -7,23 +7,31 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import ru.rubiconepro.study.Modules.Base.Dialog.PromptDialog;
 import ru.rubiconepro.study.Modules.Base.Interface.IPromptDialog;
 import ru.rubiconepro.study.Modules.NoteBook.Const.IntentConst;
+import ru.rubiconepro.study.Modules.NoteBook.Model.NoteWrapper;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 import ru.rubiconepro.study.R;
 
 public class NoteAdapter extends IAdapter  {
-    PartModel data;
+    List<NoteWrapper> data;
     int positionPart;
 
     public NoteAdapter(Context context, int position) {
         super(context);
 
         this.positionPart = position;
-        this.data = NoteBook.instance.getPartByPosition(position);
+        this.data = NoteBook.instance.getList(position);
+    }
+
+    public void reloadData() {
+        this.data = NoteBook.instance.getList(positionPart);
+        super.reloadData();
     }
 
     @Override
@@ -37,12 +45,12 @@ public class NoteAdapter extends IAdapter  {
 
     @Override
     public int getCount() {
-        return data.listNotes.size();
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return data.listNotes.get(position);
+        return data.get(position);
     }
 
     @Override
@@ -53,15 +61,18 @@ public class NoteAdapter extends IAdapter  {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = super.getView(position, convertView, parent);
 
+        //TODO Сделать отступы в зависимости от level
+        //TODO Сделать добавление
         TextView label = v.findViewById(R.id.label);
-        label.setText(data.listNotes.get(position).title.toString());
+        label.setText(data.get(position).model.title.toString());
 
         return v;
     }
 
     private void deleteElement(int position) {
-        data.listNotes.remove(position);
-        notifyDataSetChanged();
+        //data.listNotes.remove(position);
+        NoteBook.instance.deleteElement(positionPart, data.get(position));
+        this.reloadData();
     }
 
     private void editElement(final int position) {
@@ -71,10 +82,10 @@ public class NoteAdapter extends IAdapter  {
                 if (!result)
                     return;
 
-                data.listNotes.get(position).title = text;
+                data.get(position).model.title = text;
                 NoteAdapter.this.notifyDataSetChanged();
             }
-        }).setText(data.listNotes.get(position).title).show();
+        }).setText(data.get(position).model.title).show();
     }
 
 

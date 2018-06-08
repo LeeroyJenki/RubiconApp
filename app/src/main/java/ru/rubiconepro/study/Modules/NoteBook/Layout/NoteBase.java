@@ -57,7 +57,7 @@ public  abstract class NoteBase extends AppCompatActivity implements AdapterView
                     return;
 
                 createElement(text);
-                adapter.notifyDataSetChanged();
+                adapter.reloadData();
             }
         }).show();
     }

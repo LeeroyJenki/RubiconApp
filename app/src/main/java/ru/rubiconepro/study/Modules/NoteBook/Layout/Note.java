@@ -57,7 +57,6 @@ public class Note extends NoteBase {
         NotesModel nm = new NotesModel();
         nm.title = text;
         nm.text = "";
-        nm.notesList.add(nm);
         NoteBook.instance.addNote(nm, positionPart);
     }
 

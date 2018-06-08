@@ -1,6 +1,7 @@
 package ru.rubiconepro.study.Modules.NoteBook;
 
 import ru.rubiconepro.study.Modules.Base.Base;
+import ru.rubiconepro.study.Modules.NoteBook.Model.NotesModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 
@@ -21,6 +22,10 @@ public class NoteBook extends Base {
 
     public void addPart(String name) {
         model.items.add(new PartModel(name));
+    }
+
+    public void addNote(NotesModel nm, int position) {
+        model.items.get(position).listNotes.add(nm);
     }
 
     public PartModel getPartByPosition(int position) {

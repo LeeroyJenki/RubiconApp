@@ -6,13 +6,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import ru.rubiconepro.study.Modules.NoteBook.Adapter.NoteAdapter;
 import ru.rubiconepro.study.Modules.NoteBook.Adapter.PartAdapter;
 import ru.rubiconepro.study.Modules.NoteBook.Const.IntentConst;
+import ru.rubiconepro.study.Modules.NoteBook.Model.NotesModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 
 public class Note extends NoteBase {
     int position;
+    int positionPart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +23,19 @@ public class Note extends NoteBase {
 
         //Защита от програмиста
         Intent currentIntent = getIntent();
-        if (!currentIntent.hasExtra(IntentConst.position)) {
+        if (!currentIntent.hasExtra(IntentConst.positionPart)) {
             Toast.makeText(this, "Не переданы параметры", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        position = currentIntent.getIntExtra(IntentConst.position, 0);
+        positionPart = currentIntent.getIntExtra(IntentConst.positionPart, 0);
+
     }
 
     protected void createAdapter() {
-        PartModel model = NoteBook.instance.getPartByPosition(position);
+        Intent intt = getIntent();
+        positionPart = intt.getIntExtra("positionPart", 0);
+        PartModel model = NoteBook.instance.getPartByPosition(positionPart);
 
         if (model == null) {
             Toast.makeText(this, "Попытка выбора несуществуюший категории", Toast.LENGTH_SHORT).show();
@@ -37,7 +43,7 @@ public class Note extends NoteBase {
         }
 
         //TODO ПЕРЕДЕЛАТЬ
-        adapter = new PartAdapter(this);
+        adapter = new NoteAdapter(this, positionPart);
     }
 
     protected String getHeaderTitle() {
@@ -49,7 +55,11 @@ public class Note extends NoteBase {
     }
 
     protected void createElement(String text) {
-
+        NotesModel nm = new NotesModel();
+        nm.title = text;
+        nm.text = "";
+        nm.notesList.add(nm);
+        NoteBook.instance.addNote(nm, positionPart);
     }
 
     @Override

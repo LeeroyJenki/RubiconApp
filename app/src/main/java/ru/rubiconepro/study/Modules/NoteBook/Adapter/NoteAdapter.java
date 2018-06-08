@@ -17,7 +17,6 @@ import ru.rubiconepro.study.R;
 
 public class NoteAdapter extends IAdapter  {
     PartModel data;
-    int position;
     int positionPart;
 
     public NoteAdapter(Context context, int position) {

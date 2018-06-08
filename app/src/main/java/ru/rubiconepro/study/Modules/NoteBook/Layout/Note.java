@@ -14,7 +14,6 @@ import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 
 public class Note extends NoteBase {
-    int position;
     int positionPart;
 
     @Override

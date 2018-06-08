@@ -15,6 +15,7 @@ import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 
 public class Note extends NoteBase {
     int positionPart;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class Note extends NoteBase {
         }
 
         positionPart = currentIntent.getIntExtra(IntentConst.positionPart, 0);
+        position = currentIntent.getIntExtra(IntentConst.position, 0);
 
     }
 

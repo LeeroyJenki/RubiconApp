@@ -32,22 +32,27 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
 
         Button btnDelete = convertView.findViewById(R.id.btnDelete);
         Button btnEdit   = convertView.findViewById(R.id.btnEdit);
+        Button btnAdd   = convertView.findViewById(R.id.btnAdd);
 
         if (!isEditable) {
             btnDelete.setVisibility(View.GONE);
             btnEdit.setVisibility(View.GONE);
+            btnAdd.setVisibility(View.GONE);
         } else {
             btnDelete.setVisibility(View.VISIBLE);
             btnEdit.setVisibility(View.VISIBLE);
+            btnAdd.setVisibility(View.VISIBLE);
         }
 
         //Добавляем тагом позицию
         btnDelete.setTag(position);
         btnEdit.setTag(position);
+        btnAdd.setTag(position);
 
         //Вешаем обработчики
         btnDelete.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
 
         return convertView;
     }

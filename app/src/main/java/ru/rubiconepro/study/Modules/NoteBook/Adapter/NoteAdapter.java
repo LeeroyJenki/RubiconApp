@@ -10,6 +10,8 @@ import android.widget.Toast;
 import ru.rubiconepro.study.Modules.Base.Dialog.PromptDialog;
 import ru.rubiconepro.study.Modules.Base.Interface.IPromptDialog;
 import ru.rubiconepro.study.Modules.NoteBook.Const.IntentConst;
+import ru.rubiconepro.study.Modules.NoteBook.Layout.Note;
+import ru.rubiconepro.study.Modules.NoteBook.Layout.NoteBase;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
@@ -33,6 +35,8 @@ public class NoteAdapter extends IAdapter  {
             this.deleteElement(position);
         if (v.getId() == R.id.btnEdit)
             this.editElement(position);
+        if (v.getId() == R.id.btnAdd)
+            this.addElement(position);
     }
 
     @Override
@@ -75,6 +79,13 @@ public class NoteAdapter extends IAdapter  {
                 NoteAdapter.this.notifyDataSetChanged();
             }
         }).setText(data.listNotes.get(position).title).show();
+    }
+
+    private void addElement(int position) {
+        Intent i = new Intent(context, Note.class);
+        i.putExtra(IntentConst.positionPart, position);
+        i.putExtra("positionPart", position);
+        ((NoteBase)context).startActivity(i);
     }
 
 

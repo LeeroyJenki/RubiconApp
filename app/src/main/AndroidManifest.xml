@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Modules.NoteBook.Layout.Note"/>
+        <activity android:name=".Modules.NoteBook.Layout.NotesAdd"/>
     </application>
 
 </manifest>

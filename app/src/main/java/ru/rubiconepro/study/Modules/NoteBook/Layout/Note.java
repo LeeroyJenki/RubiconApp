@@ -63,6 +63,10 @@ public class Note extends NoteBase {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Intent i = new Intent(this, NotesAdd.class);
+        i.putExtra(IntentConst.position, position);
+        i.putExtra("positionPart", positionPart);
+        i.putExtra("position", position);
+        startActivity(i);
     }
 }

@@ -26,6 +26,9 @@
         </activity>
         <activity android:name=".Modules.NoteBook.Layout.Note"/>
         <activity android:name=".Modules.NoteBook.Layout.NotesAdd"/>
+        <!--<resources>-->
+            <!--<dimen name="my_value">16dp</dimen>-->
+        <!--</resources>-->
     </application>
 
 </manifest>

@@ -14,7 +14,7 @@ public class Part extends NoteBase {
         adapter = new PartAdapter(this);
     }
 
-    protected void createElement(String text) {
+    protected void createElement(String text, int positionN) {
         NoteBook.instance.addPart(text);
     }
 

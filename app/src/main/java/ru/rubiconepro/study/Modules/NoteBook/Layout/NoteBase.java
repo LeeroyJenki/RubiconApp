@@ -1,5 +1,6 @@
 package ru.rubiconepro.study.Modules.NoteBook.Layout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,11 +17,12 @@ import ru.rubiconepro.study.R;
 
 public  abstract class NoteBase extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
     IAdapter adapter;
+    int positionNote;
 
     protected abstract void createAdapter();
     protected abstract String getHeaderTitle();
     protected abstract String getButtonTitle();
-    protected abstract void createElement(String text);
+    protected abstract void createElement(String text, int positionN);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,11 @@ public  abstract class NoteBase extends AppCompatActivity implements AdapterView
         lv.setAdapter(adapter);
 
         ((TextView)findViewById(R.id.textView)).setText(getHeaderTitle());
+
+        Intent intt = getIntent();
+
+        positionNote = intt.getIntExtra("positionNote", 0);
+
     }
 
     @Override
@@ -56,7 +63,8 @@ public  abstract class NoteBase extends AppCompatActivity implements AdapterView
                 if (!result)
                     return;
 
-                createElement(text);
+
+                createElement(text, positionNote);
                 adapter.reloadData();
             }
         }).show();

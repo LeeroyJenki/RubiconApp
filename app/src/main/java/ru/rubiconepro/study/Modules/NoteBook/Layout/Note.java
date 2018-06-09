@@ -17,6 +17,7 @@ public class Note extends NoteBase {
     int positionPart;
     int positionNote;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +59,11 @@ public class Note extends NoteBase {
         return "Создать запись";
     }
 
-    protected void createElement(String text) {
+    protected void createElement(String text, int position) {
         NotesModel nm = new NotesModel();
         nm.title = text;
         nm.text = "";
-        NoteBook.instance.addNote(nm, positionPart, 0);
+        NoteBook.instance.addNote(nm, positionPart, position);
     }
 
     @Override

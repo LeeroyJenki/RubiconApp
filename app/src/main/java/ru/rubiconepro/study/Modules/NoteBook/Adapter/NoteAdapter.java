@@ -13,6 +13,7 @@ import ru.rubiconepro.study.Modules.Base.Dialog.PromptDialog;
 import ru.rubiconepro.study.Modules.Base.Interface.IPromptDialog;
 import ru.rubiconepro.study.Modules.NoteBook.Const.IntentConst;
 import ru.rubiconepro.study.Modules.NoteBook.Layout.Note;
+import ru.rubiconepro.study.Modules.NoteBook.Layout.NoteBase;
 import ru.rubiconepro.study.Modules.NoteBook.Model.NoteWrapper;
 import ru.rubiconepro.study.Modules.NoteBook.Model.NotesModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
@@ -40,13 +41,24 @@ public class NoteAdapter extends IAdapter  {
 
     @Override
     public void onClick(View v) {
-        int position = (int)v.getTag();
+        final int positionTag = (int)v.getTag();
         if (v.getId() == R.id.btnDelete)
-            this.deleteElement(position);
+            this.deleteElement(positionTag);
         if (v.getId() == R.id.btnEdit)
-            this.editElement(position);
-        if (v.getId() == R.id.btnAdd)
-            this.addElement(position);
+            this.editElement(positionTag);
+        if (v.getId() == R.id.btnAdd) {
+            this.addElement(positionTag);
+//            new PromptDialog(this, "Добавление элемента", new IPromptDialog() {
+//                @Override
+//                public void dialogDone(boolean result, String text) {
+//                    if (!result)
+//                        return;
+//
+//                    createElement(text, positionTag);
+//                    adapter.reloadData();
+//                }
+//            }).show();
+        }
     }
 
     @Override
@@ -71,6 +83,10 @@ public class NoteAdapter extends IAdapter  {
         //TODO Сделать добавление
         TextView label = v.findViewById(R.id.label);
         label.setText(data.get(position).model.title.toString());
+
+//        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) label.getLayoutParams();
+//        int m = getResources().getDimensionPixelSize(R.dimen.ololo_margin);
+//        lp.setMargins(m, 0, 0, 0);
 
         return v;
     }
@@ -100,7 +116,7 @@ public class NoteAdapter extends IAdapter  {
         i.putExtra(IntentConst.positionPart, positionPart);
         i.putExtra("positionPart", positionPart);
         i.putExtra("positionNote", position);
-  //      (NotesModel).context.startActivity(i);
+       ((NoteBase)context).startActivity(i);
 
 
     }

@@ -15,6 +15,7 @@ import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 
 public class Note extends NoteBase {
     int positionPart;
+    int positionNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +29,15 @@ public class Note extends NoteBase {
         }
 
         positionPart = currentIntent.getIntExtra(IntentConst.positionPart, 0);
+        positionNote = currentIntent.getIntExtra(IntentConst.positionNote, 0);
+
 
     }
 
     protected void createAdapter() {
         Intent intt = getIntent();
         positionPart = intt.getIntExtra("positionPart", 0);
+        positionNote = intt.getIntExtra("positionNote", 0);
         PartModel model = NoteBook.instance.getPartByPosition(positionPart);
 
         if (model == null) {
@@ -42,7 +46,8 @@ public class Note extends NoteBase {
         }
 
         //TODO ПЕРЕДЕЛАТЬ
-        adapter = new NoteAdapter(this, positionPart);
+        adapter = new NoteAdapter(this, positionPart, positionNote);
+
     }
 
     protected String getHeaderTitle() {
@@ -57,7 +62,7 @@ public class Note extends NoteBase {
         NotesModel nm = new NotesModel();
         nm.title = text;
         nm.text = "";
-        NoteBook.instance.addNote(nm, positionPart);
+        NoteBook.instance.addNote(nm, positionPart, 0);
     }
 
     @Override

@@ -12,7 +12,9 @@ import java.util.List;
 import ru.rubiconepro.study.Modules.Base.Dialog.PromptDialog;
 import ru.rubiconepro.study.Modules.Base.Interface.IPromptDialog;
 import ru.rubiconepro.study.Modules.NoteBook.Const.IntentConst;
+import ru.rubiconepro.study.Modules.NoteBook.Layout.Note;
 import ru.rubiconepro.study.Modules.NoteBook.Model.NoteWrapper;
+import ru.rubiconepro.study.Modules.NoteBook.Model.NotesModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
@@ -21,12 +23,14 @@ import ru.rubiconepro.study.R;
 public class NoteAdapter extends IAdapter  {
     List<NoteWrapper> data;
     int positionPart;
+    int positionParrent;
 
-    public NoteAdapter(Context context, int position) {
+    public NoteAdapter(Context context, int position, int positionNote) {
         super(context);
 
         this.positionPart = position;
         this.data = NoteBook.instance.getList(position);
+        this.positionParrent = positionNote;
     }
 
     public void reloadData() {
@@ -41,6 +45,8 @@ public class NoteAdapter extends IAdapter  {
             this.deleteElement(position);
         if (v.getId() == R.id.btnEdit)
             this.editElement(position);
+        if (v.getId() == R.id.btnAdd)
+            this.addElement(position);
     }
 
     @Override
@@ -86,6 +92,17 @@ public class NoteAdapter extends IAdapter  {
                 NoteAdapter.this.notifyDataSetChanged();
             }
         }).setText(data.get(position).model.title).show();
+    }
+
+    private void addElement(int position) {
+
+        Intent i = new Intent(context, Note.class);
+        i.putExtra(IntentConst.positionPart, positionPart);
+        i.putExtra("positionPart", positionPart);
+        i.putExtra("positionNote", position);
+  //      (NotesModel).context.startActivity(i);
+
+
     }
 
 

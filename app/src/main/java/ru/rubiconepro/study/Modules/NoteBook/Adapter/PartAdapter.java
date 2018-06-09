@@ -58,6 +58,7 @@ public class PartAdapter extends IAdapter {
             this.deleteElement(position);
         if (v.getId() == R.id.btnEdit)
             this.editElement(position);
+
     }
 
     private void deleteElement(int position) {
@@ -77,4 +78,9 @@ public class PartAdapter extends IAdapter {
             }
         }).setText(data.items.get(position).title).show();
     }
+
+
+
+
+
 }

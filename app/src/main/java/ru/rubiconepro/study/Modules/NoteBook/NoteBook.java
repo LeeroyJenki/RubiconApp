@@ -27,8 +27,12 @@ public class NoteBook extends Base {
         model.items.add(new PartModel(name));
     }
 
-    public void addNote(NotesModel nm, int position) {
-        model.items.get(position).listNotes.add(nm);
+    public void addNote(NotesModel nm, int positionPart, int positionNote) {
+        if (positionNote == 0) {
+            model.items.get(positionPart).listNotes.add(nm);
+        } else {
+            model.items.get(positionPart).listNotes.get(positionNote).notesList.add(nm);
+        }
     }
 
     public PartModel getPartByPosition(int position) {

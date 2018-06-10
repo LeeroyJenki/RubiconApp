@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
+import ru.rubiconepro.study.Modules.NoteBook.Adapter.IAdapter;
 import ru.rubiconepro.study.Modules.NoteBook.Adapter.PartAdapter;
 import ru.rubiconepro.study.Modules.NoteBook.Const.IntentConst;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 
+/**
+ * Класс - Лайаут для отображения категорий записной книги
+ */
 public class Part extends NoteBase {
 
-    protected void createAdapter() {
-        adapter = new PartAdapter(this);
+    protected IAdapter createAdapter() {
+        return new PartAdapter(this);
     }
 
     protected void createElement(String text) {

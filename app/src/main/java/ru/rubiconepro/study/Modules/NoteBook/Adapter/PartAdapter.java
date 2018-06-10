@@ -51,21 +51,12 @@ public class PartAdapter extends IAdapter {
         return v;
     }
 
-    @Override
-    public void onClick(View v) {
-        int position = (int)v.getTag();
-        if (v.getId() == R.id.btnDelete)
-            this.deleteElement(position);
-        if (v.getId() == R.id.btnEdit)
-            this.editElement(position);
-    }
-
-    private void deleteElement(int position) {
+    void deleteElement(int position) {
         data.items.remove(position);
         notifyDataSetChanged();
     }
 
-    private void editElement(final int position) {
+    void editElement(final int position) {
         new PromptDialog(context, "Изменение элемента", new IPromptDialog() {
             @Override
             public void dialogDone(boolean result, String text) {

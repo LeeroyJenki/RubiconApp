@@ -38,8 +38,14 @@ public class NoteBook extends Base {
         return model.items.get(position);
     }
 
-    private void AppendList(List<NoteWrapper> data, NotesModel model, NotesModel parent, int level) {
-
+    /**
+     * Рекурсивная функция обхода дерева
+     * @param data указатель на массив в который мы добавляем все записи
+     * @param model Текущая модель данных
+     * @param parent Модель парента (Может быть NULL)
+     * @param level Текущий уровень вложенности
+     */
+    private void appendList(List<NoteWrapper> data, NotesModel model, NotesModel parent, int level) {
             NoteWrapper w = new NoteWrapper();
             w.model = model;
             w.parent = parent;
@@ -49,16 +55,21 @@ public class NoteBook extends Base {
 
             if (model.notesList != null)
                 for (NotesModel sub: model.notesList)
-                    AppendList(data, sub, model, level + 1);
+                    appendList(data, sub, model, level + 1);
     }
 
+    /**
+     * Полкчение плоского списка записей из дерева
+     * @param position Индекс категории
+     * @return плоский список записей
+     */
     public List<NoteWrapper> getList (int position) {
         List<NoteWrapper> data = new ArrayList<>();
 
         PartModel m = this.getPartByPosition(position);
 
         for (NotesModel sub : m.listNotes)
-            AppendList(data, sub, null, 0);
+            appendList(data, sub, null, 0);
 
         return data;
     }

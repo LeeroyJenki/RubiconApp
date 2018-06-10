@@ -16,6 +16,9 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
     LayoutInflater inflater;
     Context context;
 
+    abstract void deleteElement(int position);
+    abstract void editElement(final int position);
+
     protected IAdapter(Context context) {
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,8 +57,16 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
         return convertView;
     }
 
+    @Override
+    public void onClick(View v) {
+        int position = (int)v.getTag();
+        if (v.getId() == R.id.btnDelete)
+            this.deleteElement(position);
+        if (v.getId() == R.id.btnEdit)
+            this.editElement(position);
+    }
+
     public void reloadData() {
         this.notifyDataSetChanged();
     }
-
 }

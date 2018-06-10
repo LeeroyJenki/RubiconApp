@@ -35,15 +35,6 @@ public class NoteAdapter extends IAdapter  {
     }
 
     @Override
-    public void onClick(View v) {
-        int position = (int)v.getTag();
-        if (v.getId() == R.id.btnDelete)
-            this.deleteElement(position);
-        if (v.getId() == R.id.btnEdit)
-            this.editElement(position);
-    }
-
-    @Override
     public int getCount() {
         return data.size();
     }
@@ -69,13 +60,13 @@ public class NoteAdapter extends IAdapter  {
         return v;
     }
 
-    private void deleteElement(int position) {
+    void deleteElement(int position) {
         //data.listNotes.remove(position);
         NoteBook.instance.deleteElement(positionPart, data.get(position));
         this.reloadData();
     }
 
-    private void editElement(final int position) {
+    void editElement(final int position) {
         new PromptDialog(context, "Изменение элемента", new IPromptDialog() {
             @Override
             public void dialogDone(boolean result, String text) {

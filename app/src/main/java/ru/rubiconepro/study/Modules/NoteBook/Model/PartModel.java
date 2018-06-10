@@ -6,9 +6,10 @@ import java.util.List;
 
 import ru.rubiconepro.study.Modules.Base.Model.BaseModel;
 
+//Категории записей
 public class PartModel extends BaseModel implements Serializable {
-    public String title;
-    public List<NotesModel> listNotes;
+    public String title; //Название категории
+    public List<NotesModel> listNotes; //Записи которые входят в эту категорию
 
     public PartModel() {
         title = "";

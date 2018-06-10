@@ -95,4 +95,8 @@ public final class DAO {
     <T extends DataObject> void update(DataStorage<T> storage, T t) {
         for(StorageUpdater storageUpdater : storageUpdaters) storageUpdater.update(storage, t);
     }
+
+    <T extends DataObject> void push(DataStorage<T> storage, List<T> t) {
+        for(StorageUpdater storageUpdater : storageUpdaters) storageUpdater.push(storage, t);
+    }
 }

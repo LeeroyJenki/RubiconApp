@@ -5,15 +5,18 @@ import android.support.annotation.Nullable;
 import com.carrotsearch.hppc.IntObjectMap;
 import com.carrotsearch.hppc.IntObjectScatterMap;
 import com.carrotsearch.hppc.cursors.IntObjectCursor;
+import com.carrotsearch.hppc.cursors.ObjectCursor;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.AbstractCollection;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public final class DataStorage<T extends DataObject> {
+public final class DataStorage<T extends DataObject> extends AbstractCollection<T> {
     private final IntObjectMap<T> list = new IntObjectScatterMap<>();
     @Getter
     private final String name;
@@ -41,9 +44,28 @@ public final class DataStorage<T extends DataObject> {
         return DAO.getData(this, masterRequired);
     }
 
-    public void add(T t) {
-        if(list.put(t.id, t) == null)
+    @NonNull
+    @Override
+    public Iterator<T> iterator() {
+        return new IteratorImpl();
+    }
+
+    @Override
+    public int size() {
+        return list.size();
+    }
+
+    public boolean add(T t) {
+        if(list.put(t.id, t) == null) {
             DAO.add(this, t);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void clear() {
+        list.clear();
     }
 
     public void remove(T t) {
@@ -62,5 +84,32 @@ public final class DataStorage<T extends DataObject> {
         List<T> data = DAO.getData(this, masterRequired);
         list.clear();
         for(T datum : data) list.put(datum.id, datum);
+    }
+
+    public void pushToStorage() {
+        DAO.push(this, getAllCached());
+    }
+
+    private final class IteratorImpl implements Iterator<T> {
+        private final Iterator<ObjectCursor<T>> cursors;
+
+        IteratorImpl() {
+            this.cursors = list.values().iterator();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return cursors.hasNext();
+        }
+
+        @Override
+        public T next() {
+            return cursors.next().value;
+        }
+
+        @Override
+        public void remove() {
+            cursors.remove();
+        }
     }
 }

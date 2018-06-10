@@ -32,6 +32,10 @@ public final class DAO {
         storageUpdaters.add(updater);
     }
 
+    public List<DataStorage<?>> getDataStorages() {
+        return (List<DataStorage<?>>) ds.values();
+    }
+
     <T extends DataObject> List<T> getData(DataStorage<T> dataStorage, boolean masterRequired) {
         if(masterRequired) {
             List<T> list = null;

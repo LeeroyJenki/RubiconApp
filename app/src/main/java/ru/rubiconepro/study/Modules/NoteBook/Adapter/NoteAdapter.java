@@ -13,6 +13,7 @@ import ru.rubiconepro.study.Modules.Base.Dialog.PromptDialog;
 import ru.rubiconepro.study.Modules.Base.Interface.IPromptDialog;
 import ru.rubiconepro.study.Modules.NoteBook.Const.IntentConst;
 import ru.rubiconepro.study.Modules.NoteBook.Model.NoteWrapper;
+import ru.rubiconepro.study.Modules.NoteBook.Model.NotesModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartListModel;
 import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
@@ -52,11 +53,16 @@ public class NoteAdapter extends IAdapter  {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = super.getView(position, convertView, parent);
 
-        //TODO Сделать отступы в зависимости от level
-        //TODO Сделать добавление
-        TextView label = v.findViewById(R.id.label);
-        label.setText(data.get(position).model.title.toString());
+        NoteWrapper w = data.get(position);
 
+        StringBuilder b = new StringBuilder();
+        for (int i = 0; i < w.level; i++) {
+            b.append("  ");
+        }
+        b.append(w.model.title);
+
+        TextView label = v.findViewById(R.id.label);
+        label.setText(b.toString());
         return v;
     }
 
@@ -79,5 +85,23 @@ public class NoteAdapter extends IAdapter  {
         }).setText(data.get(position).model.title).show();
     }
 
+    @Override
+    protected void addElement(final int position) {
+        new PromptDialog(context, "Добавление элемента", new IPromptDialog() {
+            @Override
+            public void dialogDone(boolean result, String text) {
+                if (!result)
+                    return;
 
+                NotesModel nm = new NotesModel();
+                nm.title = text;
+                nm.text = "";
+
+                NoteWrapper w = data.get(position);
+                w.model.notesList.add(nm);
+
+                reloadData();
+            }
+        }).setText("").show();
+    }
 }

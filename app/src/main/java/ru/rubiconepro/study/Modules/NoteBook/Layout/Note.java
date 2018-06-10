@@ -31,7 +31,9 @@ public class Note extends NoteBase {
             return null;
         }
 
-        return new NoteAdapter(this, positionPart);
+        NoteAdapter a = new NoteAdapter(this, positionPart);
+        a.setBtnAddVisible(true);
+        return a;
     }
 
     protected String getHeaderTitle() {

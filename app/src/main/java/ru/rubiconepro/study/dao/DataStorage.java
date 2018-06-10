@@ -57,4 +57,10 @@ public final class DataStorage<T extends DataObject> {
             DAO.update(this, t);
         }
     }
+
+    public void syncWithStorage(boolean masterRequired) {
+        List<T> data = DAO.getData(this, masterRequired);
+        list.clear();
+        for(T datum : data) list.put(datum.id, datum);
+    }
 }

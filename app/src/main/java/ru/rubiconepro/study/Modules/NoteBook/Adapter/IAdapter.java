@@ -20,6 +20,9 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
     abstract void deleteElement(int position);
     abstract void editElement(final int position);
     protected void addElement (int position) { }
+    protected void leftElement (int position) { }
+    protected void rightElement (int position) { }
+    protected void rollElement (int position) { }
 
     protected IAdapter(Context context) {
         this.context = context;
@@ -45,27 +48,44 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
         Button btnDelete = convertView.findViewById(R.id.btnDelete);
         Button btnEdit   = convertView.findViewById(R.id.btnEdit);
         Button btnAdd    = convertView.findViewById(R.id.btnAdd);
+        Button btnLeft    = convertView.findViewById(R.id.btnLeft);
+        Button btnRight    = convertView.findViewById(R.id.btnRight);
+        Button btnRoll    = convertView.findViewById(R.id.btnRoll);
+
 
         if (!isEditable) {
             btnDelete.setVisibility(View.GONE);
             btnEdit.setVisibility(View.GONE);
             btnAdd.setVisibility(View.GONE);
+            btnLeft.setVisibility(View.GONE);
+            btnRight.setVisibility(View.GONE);
+            btnRoll.setVisibility(View.GONE);
         } else {
             btnDelete.setVisibility(View.VISIBLE);
             btnEdit.setVisibility(View.VISIBLE);
-            if (btnAddVisible)
+            if (btnAddVisible) {
                 btnAdd.setVisibility(View.VISIBLE);
+                btnLeft.setVisibility(View.VISIBLE);
+                btnRight.setVisibility(View.VISIBLE);
+                btnRoll.setVisibility(View.VISIBLE);
+            }
         }
 
         //Добавляем тагом позицию
         btnDelete.setTag(position);
         btnEdit.setTag(position);
         btnAdd.setTag(position);
+        btnLeft.setTag(position);
+        btnRight.setTag(position);
+        btnRoll.setTag(position);
 
         //Вешаем обработчики
         btnDelete.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
+        btnLeft.setOnClickListener(this);
+        btnRight.setOnClickListener(this);
+        btnRoll.setOnClickListener(this);
 
         return convertView;
     }
@@ -79,6 +99,12 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
             this.editElement(position);
         if (v.getId() == R.id.btnAdd)
             this.addElement(position);
+        if (v.getId() == R.id.btnLeft)
+            this.leftElement(position);
+        if (v.getId() == R.id.btnRight)
+            this.rightElement(position);
+        if (v.getId() == R.id.btnRoll)
+            this.rollElement(position);
     }
 
     public void reloadData() {

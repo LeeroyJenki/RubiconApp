@@ -22,6 +22,7 @@ import ru.rubiconepro.study.R;
 public class NoteAdapter extends IAdapter  {
     List<NoteWrapper> data;
     int positionPart;
+    boolean rollBool = false;
 
     public NoteAdapter(Context context, int position) {
         super(context);
@@ -57,7 +58,7 @@ public class NoteAdapter extends IAdapter  {
 
         StringBuilder b = new StringBuilder();
         for (int i = 0; i < w.level; i++) {
-            b.append("  ");
+            b.append("      ");
         }
         b.append(w.model.title);
 
@@ -103,5 +104,58 @@ public class NoteAdapter extends IAdapter  {
                 reloadData();
             }
         }).setText("").show();
+    }
+
+    protected void rightElement(final int position) {
+
+        NoteWrapper w = data.get(position);
+        NotesModel nm = new NotesModel();
+        nm.title = w.model.title;
+        nm.text = w.model.text;
+     //   nm.notesList = w.model.notesList;
+
+        w.model.notesList.add(nm);
+
+ //       NoteBook.instance.deleteElement(positionPart, data.get(position));
+
+
+        this.reloadData();
+    }
+
+    protected void leftElement(final int position) {
+
+        NoteWrapper w = data.get(position);
+        NotesModel nm = new NotesModel();
+        nm.title = w.model.title;
+        nm.text = w.model.text;
+        //   nm.notesList = w.model.notesList;
+
+     //   w.parent.notesList.add(nm);
+        if (w.parent != null){
+        NotesModel nmCurr;
+        nmCurr = w.parent;
+        for (int i =0; i < data.size(); i++){
+            if(data.equals(nmCurr)){
+               nmCurr. 
+            }
+        }
+
+    //    w.parent.title = nm.title;
+    //    w.parent.text = nm.text;
+        }
+
+//        NoteBook.instance.deleteElement(positionPart, data.get(position));
+
+
+        this.reloadData();
+
+    }
+
+    protected void rollElement(final int position) {
+
+
+
+
+        this.reloadData();
     }
 }

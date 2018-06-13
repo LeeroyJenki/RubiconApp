@@ -57,7 +57,7 @@ public class NoteAdapter extends IAdapter  {
 
         StringBuilder b = new StringBuilder();
         for (int i = 0; i < w.level; i++) {
-            b.append("  ");
+            b.append("    ");
         }
         b.append(w.model.title);
 
@@ -72,6 +72,25 @@ public class NoteAdapter extends IAdapter  {
         this.reloadData();
     }
 
+    void elementUp(int position){
+
+        if (data.get(position).parent == null || data.get(position).parent == null)
+            return;;
+
+        NotesModel m =
+        data.get(position).model.notesList.set();
+        for (item : data
+             ) if(){
+
+        }
+        this.reloadData();
+    }
+
+    void elementDown(int position){
+
+        this.reloadData();
+
+    }
     void editElement(final int position) {
         new PromptDialog(context, "Изменение элемента", new IPromptDialog() {
             @Override

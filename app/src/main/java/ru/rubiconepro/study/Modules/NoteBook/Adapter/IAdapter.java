@@ -19,6 +19,8 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
 
     abstract void deleteElement(int position);
     abstract void editElement(final int position);
+    abstract void elementUp( int position);
+    abstract void elementDown( int position);
     protected void addElement (int position) { }
 
     protected IAdapter(Context context) {
@@ -45,14 +47,20 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
         Button btnDelete = convertView.findViewById(R.id.btnDelete);
         Button btnEdit   = convertView.findViewById(R.id.btnEdit);
         Button btnAdd    = convertView.findViewById(R.id.btnAdd);
+        Button btnup = convertView.findViewById(R.id.buttonUPstring);
+        Button btndown = convertView.findViewById(R.id.buttonDOWNstring);
 
         if (!isEditable) {
             btnDelete.setVisibility(View.GONE);
             btnEdit.setVisibility(View.GONE);
             btnAdd.setVisibility(View.GONE);
+            btnup.setVisibility(View.GONE);
+            btndown.setVisibility(View.GONE);
         } else {
             btnDelete.setVisibility(View.VISIBLE);
             btnEdit.setVisibility(View.VISIBLE);
+            btnup.setVisibility(View.VISIBLE);
+            btndown.setVisibility(View.VISIBLE);
             if (btnAddVisible)
                 btnAdd.setVisibility(View.VISIBLE);
         }
@@ -61,11 +69,15 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
         btnDelete.setTag(position);
         btnEdit.setTag(position);
         btnAdd.setTag(position);
+        btnup.setTag(position);
+        btndown.setTag(position);
 
         //Вешаем обработчики
         btnDelete.setOnClickListener(this);
         btnEdit.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
+        btnup.setOnClickListener(this);
+        btndown.setOnClickListener(this);
 
         return convertView;
     }
@@ -78,6 +90,10 @@ public abstract class IAdapter extends BaseAdapter implements View.OnClickListen
         if (v.getId() == R.id.btnEdit)
             this.editElement(position);
         if (v.getId() == R.id.btnAdd)
+            this.addElement(position);
+        if (v.getId() == R.id.buttonUPstring)
+            this.addElement(position);
+        if (v.getId() == R.id.buttonDOWNstring)
             this.addElement(position);
     }
 

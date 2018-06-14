@@ -74,11 +74,11 @@ public class NoteBook extends Base {
         return data;
     }
 
-    public void deleteElement (int position, NoteWrapper element) {
+    public void deleteElement (int positionP, NoteWrapper element) {
         if (element.parent != null) {
             element.parent.notesList.remove(element.model);
         } else {
-            getPartByPosition(position).listNotes.remove(element.model);
+            getPartByPosition(positionP).listNotes.remove(element.model);
         }
     }
 

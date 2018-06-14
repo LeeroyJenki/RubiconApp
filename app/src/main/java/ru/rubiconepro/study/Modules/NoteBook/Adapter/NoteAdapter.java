@@ -112,11 +112,14 @@ public class NoteAdapter extends IAdapter  {
         NotesModel nm = new NotesModel();
         nm.title = w.model.title;
         nm.text = w.model.text;
-     //   nm.notesList = w.model.notesList;
 
         w.model.notesList.add(nm);
 
- //       NoteBook.instance.deleteElement(positionPart, data.get(position));
+  //      NoteBook.instance.deleteElement(positionPart, data.get(position));
+
+
+ //       data.remove(data.get(position).toString());
+ //         data.remove(w);
 
 
         this.reloadData();
@@ -128,25 +131,34 @@ public class NoteAdapter extends IAdapter  {
         NotesModel nm = new NotesModel();
         nm.title = w.model.title;
         nm.text = w.model.text;
-        //   nm.notesList = w.model.notesList;
 
-     //   w.parent.notesList.add(nm);
         if (w.parent != null){
-        NotesModel nmCurr;
-        nmCurr = w.parent;
-        for (int i =0; i < data.size(); i++){
-            if(data.equals(nmCurr)){
-               nmCurr. 
+
+        NoteWrapper wPar2 = new NoteWrapper();
+        for (int i = 0; i < data.size(); i++){
+            if((data.get(i)).model.equals(w.parent)){
+
+                wPar2 = data.get(i);
+
+                if (wPar2.parent != null) {
+                    wPar2.parent.notesList.add(nm);
+                } else {
+
+                    NoteWrapper wPar = new NoteWrapper();
+                    NotesModel nmNew = new NotesModel();
+                    nmNew.text = nm.text;
+                    nmNew.title = nm.title;
+                    wPar.model = nmNew;
+                    wPar.parent = null;
+                    wPar.level = 0;
+
+                    NoteBook.instance.addNote(nmNew, positionPart);
+                }
             }
         }
+    }
 
-    //    w.parent.title = nm.title;
-    //    w.parent.text = nm.text;
-        }
-
-//        NoteBook.instance.deleteElement(positionPart, data.get(position));
-
-
+        NoteBook.instance.deleteElement(positionPart, data.get(position));
         this.reloadData();
 
     }

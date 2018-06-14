@@ -8,11 +8,13 @@ import java.util.List;
 public class NotesModel implements Serializable {
     public String title;
     public String text;
+    public  boolean isShowN;
     public List<NotesModel> notesList; //Вложенные записи
 
     public NotesModel() {
         title = "";
         text = "";
+        isShowN = true;
         notesList = new ArrayList<>();
     }
 }

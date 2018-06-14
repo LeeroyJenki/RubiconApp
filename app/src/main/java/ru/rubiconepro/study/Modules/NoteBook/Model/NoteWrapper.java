@@ -21,4 +21,5 @@ public class NoteWrapper {
      * Уровень вложенности
      */
     public int level;
+
 }

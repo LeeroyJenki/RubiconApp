@@ -46,16 +46,20 @@ public class NoteBook extends Base {
      * @param level Текущий уровень вложенности
      */
     private void appendList(List<NoteWrapper> data, NotesModel model, NotesModel parent, int level) {
-            NoteWrapper w = new NoteWrapper();
-            w.model = model;
-            w.parent = parent;
-            w.level = level;
+        NoteWrapper w = new NoteWrapper();
+        w.model = model;
+        w.parent = parent;
+        w.level = level;
 
-            data.add(w);
+        data.add(w);
+
 
             if (model.notesList != null)
-                for (NotesModel sub: model.notesList)
+
+                for (NotesModel sub : model.notesList)
+                    if(sub.isShowN = true)
                     appendList(data, sub, model, level + 1);
+
     }
 
     /**

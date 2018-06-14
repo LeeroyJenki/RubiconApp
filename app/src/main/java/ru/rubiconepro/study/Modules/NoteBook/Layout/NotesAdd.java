@@ -41,6 +41,7 @@ public class NotesAdd extends AppCompatActivity implements View.OnClickListener 
 
         model = NoteBook.instance.getList(positionPart).get(position);
 
+
         titleNameN.setText(model.model.title.toString());
         notesTextN.setText(model.model.text.toString());
 
@@ -53,6 +54,7 @@ public class NotesAdd extends AppCompatActivity implements View.OnClickListener 
         nt.title = titleNameN.getText().toString();
         nt.text = notesTextN.getText().toString();
         nt.notesList.add(nt);
+
 
         model.model.title = titleNameN.getText().toString();
         model.model.text = notesTextN.getText().toString();

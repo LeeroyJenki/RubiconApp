@@ -167,9 +167,10 @@ public class NoteAdapter extends IAdapter  {
 
         NoteWrapper w = data.get(position);
   //      w.model.notesList.
-        for (NotesModel mod : w.model.notesList)
+        for (NotesModel mod : w.model.notesList) {
+            data.get(position).model.isShowN = false;
             mod.isShowN = false;
-
+        }
         this.reloadData();
     }
 }

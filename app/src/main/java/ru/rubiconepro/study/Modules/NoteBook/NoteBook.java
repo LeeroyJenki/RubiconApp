@@ -56,10 +56,10 @@ public class NoteBook extends Base {
 
             if (model.notesList != null)
 
-                for (NotesModel sub : model.notesList)
-                    if(sub.isShowN = true)
-                    appendList(data, sub, model, level + 1);
-
+                for (NotesModel sub : model.notesList) {
+                    if (sub.isShowN == true)
+                        appendList(data, sub, model, level + 1);
+                }
     }
 
     /**
@@ -72,9 +72,10 @@ public class NoteBook extends Base {
 
         PartModel m = this.getPartByPosition(position);
 
-        for (NotesModel sub : m.listNotes)
-            appendList(data, sub, null, 0);
-
+        for (NotesModel sub : m.listNotes) {
+            if (sub.isShowN == true)
+                appendList(data, sub, null, 0);
+        }
         return data;
     }
 

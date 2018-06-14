@@ -22,7 +22,8 @@ import ru.rubiconepro.study.R;
 public class NoteAdapter extends IAdapter  {
     List<NoteWrapper> data;
     int positionPart;
-    boolean rollBool = false;
+    int positionNote = -1;
+
 
     public NoteAdapter(Context context, int position) {
         super(context);
@@ -112,6 +113,8 @@ public class NoteAdapter extends IAdapter  {
         NotesModel nm = new NotesModel();
         nm.title = w.model.title;
         nm.text = w.model.text;
+        nm.notesList = w.model.notesList;
+        nm.isShowN = w.model.isShowN;
 
         w.model.notesList.add(nm);
 
@@ -131,6 +134,8 @@ public class NoteAdapter extends IAdapter  {
         NotesModel nm = new NotesModel();
         nm.title = w.model.title;
         nm.text = w.model.text;
+        nm.notesList = w.model.notesList;
+        nm.isShowN = w.model.isShowN;
 
         if (w.parent != null){
 
@@ -141,18 +146,21 @@ public class NoteAdapter extends IAdapter  {
                 wPar2 = data.get(i);
 
                 if (wPar2.parent != null) {
-                    wPar2.parent.notesList.add(nm);
+            //      int index = wPar2.parent.
+                  wPar2.parent.notesList.add(position - 1, nm);
                 } else {
 
                     NoteWrapper wPar = new NoteWrapper();
                     NotesModel nmNew = new NotesModel();
                     nmNew.text = nm.text;
                     nmNew.title = nm.title;
+                    nmNew.notesList = nm.notesList;
+                    nmNew.isShowN = nm.isShowN;
                     wPar.model = nmNew;
                     wPar.parent = null;
                     wPar.level = 0;
-
-                    NoteBook.instance.addNote(nmNew, positionPart);
+                    positionNote = position;
+                    NoteBook.instance.addNote(nmNew, positionPart, positionNote);
                 }
             }
         }

@@ -48,7 +48,7 @@ public class Note extends NoteBase {
         NotesModel nm = new NotesModel();
         nm.title = text;
         nm.text = "";
-        NoteBook.instance.addNote(nm, positionPart);
+        NoteBook.instance.addNote(nm, positionPart, -1);
     }
 
     @Override

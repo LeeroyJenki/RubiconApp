@@ -172,11 +172,7 @@ public class NoteAdapter extends IAdapter  {
     }
 
     protected void rollElement(final int position) {
-
- //       NoteWrapper w = data.get(position);
-  //      w.model.notesList.
         for (NotesModel mod : data.get(position).model.notesList) {
-     //       data.get(position).model.isShowN = false;
             if (mod.isShowN == true) {
                 mod.isShowN = false;
             } else {

@@ -46,18 +46,30 @@ public class NoteBook extends Base {
      * @param level Текущий уровень вложенности
      */
     private void appendList(List<NoteWrapper> data, NotesModel model, NotesModel parent, int level) {
+        //Создаем элемент плоского списка
         NoteWrapper w = new NoteWrapper();
+        //Добавляем туда текущий элемент
         w.model = model;
+        //Добавляем указатель на предыдущий элемент
         w.parent = parent;
+        //Устанавливаем уровень
         w.level = level;
 
+        //Добавляем все в плоский список
+        //Так как нам передается только указатель на него
+        //то мы можем просто добавить элемент
+        //и он отобразится в предыдущей функции
         data.add(w);
 
 
+        //Если есть связанные записи
             if (model.notesList != null)
 
+                //Мы по ним пробегаемся
                 for (NotesModel sub : model.notesList) {
+                    //И если текущий элемент нужно развернуть
                     if (sub.isShowN == true)
+                        //Добавляем в список и его
                         appendList(data, sub, model, level + 1);
                 }
     }
@@ -68,12 +80,17 @@ public class NoteBook extends Base {
      * @return плоский список записей
      */
     public List<NoteWrapper> getList (int position) {
+        //Создание плоского списка
         List<NoteWrapper> data = new ArrayList<>();
 
+        //Получение категории для отображения
         PartModel m = this.getPartByPosition(position);
 
+        //Пробегаемся по списку записей (NoteModel)
         for (NotesModel sub : m.listNotes) {
+            //Если нужно отрисовывать поддерево
             if (sub.isShowN == true)
+                //То рисуем его
                 appendList(data, sub, null, 0);
         }
         return data;

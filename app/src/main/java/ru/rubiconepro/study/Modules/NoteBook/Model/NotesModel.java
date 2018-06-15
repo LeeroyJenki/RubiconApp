@@ -10,11 +10,13 @@ public class NotesModel implements Serializable {
     public String text;
     public  boolean isShowN;
     public List<NotesModel> notesList; //Вложенные записи
+    public int positionCurrThis;
 
     public NotesModel() {
         title = "";
         text = "";
         isShowN = true;
         notesList = new ArrayList<>();
+        positionCurrThis = -1;
     }
 }

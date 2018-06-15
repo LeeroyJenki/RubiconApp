@@ -137,8 +137,9 @@ public class NoteAdapter extends IAdapter  {
         nm.notesList = w.model.notesList;
         nm.isShowN = w.model.isShowN;
 
-        if (w.parent != null){
 
+        if (w.parent != null){
+        int indexThis = w.parent.positionCurrThis;
         NoteWrapper wPar2 = new NoteWrapper();
         for (int i = 0; i < data.size(); i++){
             if((data.get(i)).model.equals(w.parent)){
@@ -146,11 +147,11 @@ public class NoteAdapter extends IAdapter  {
                 wPar2 = data.get(i);
 
                 if (wPar2.parent != null) {
-            //      int index = wPar2.parent.
+                  int index = wPar2.parent.positionCurrThis;
                     if (position != 0) {
-                        wPar2.parent.notesList.add((position - 1), nm);
+                        wPar2.parent.notesList.add(index, nm);
                     } else {
-                        wPar2.parent.notesList.add(position, nm);
+                        wPar2.parent.notesList.add(indexThis, nm);
                     }
                 } else {
 
@@ -164,7 +165,7 @@ public class NoteAdapter extends IAdapter  {
                     wPar.parent = null;
                     wPar.level = 0;
                     if (w.level == 1){
-                        NoteBook.instance.addNote(nmNew, positionPart, -1);
+                        NoteBook.instance.addNote(nmNew, positionPart, indexThis);
                     } else {
                         positionNote = position;
                         NoteBook.instance.addNote(nmNew, positionPart, positionNote);

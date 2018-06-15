@@ -22,6 +22,6 @@ public class NoteWrapper {
      */
     public int level;
 
-    public int positionCurrThis;
+
 
 }

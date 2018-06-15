@@ -14,6 +14,7 @@ public class NoteBook extends Base {
     public static final NoteBook instance = new NoteBook();
     private NoteBook() { }
     private PartListModel model = null;
+    int count = 0;
 
     public PartListModel getModel() {
         //TODO Сделать Сбор данных из хранилища
@@ -67,15 +68,24 @@ public class NoteBook extends Base {
 
 
         //Если есть связанные записи
-            if (model.notesList != null)
+            if (model.notesList != null) {
 
                 //Мы по ним пробегаемся
-                for (NotesModel sub : model.notesList) {
-                    //И если текущий элемент нужно развернуть
-                    if (sub.isShowN == true)
-                        //Добавляем в список и его
-                        appendList(data, sub, model, level + 1);
+//                for (NotesModel sub : model.notesList) {
+//                    //И если текущий элемент нужно развернуть
+//                    if (sub.isShowN == true)
+//                        //Добавляем в список и его
+//
+//                        appendList(data, sub, model, level + 1);
+//                }
+                for (int i = 0; i < model.notesList.size(); i++) {
+                    if (model.notesList.get(i).isShowN == true) {
+  //                      model.notesList.get(i).positionCurrThis = count;
+  //                      count++;
+                        appendList(data, model.notesList.get(i), model, level + 1);
+                    }
                 }
+            }
     }
 
     /**
@@ -84,7 +94,7 @@ public class NoteBook extends Base {
      * @return плоский список записей
      */
     public List<NoteWrapper> getList (int position) {
-        int count = 0;
+
         //Создание плоского списка
         List<NoteWrapper> data = new ArrayList<>();
 
@@ -92,14 +102,26 @@ public class NoteBook extends Base {
         PartModel m = this.getPartByPosition(position);
 
         //Пробегаемся по списку записей (NoteModel)
-        for (NotesModel sub : m.listNotes) {
-            //Если нужно отрисовывать поддерево
-            if (sub.isShowN == true)
-                //То рисуем его
-                appendList(data, sub, null, 0);
-                sub.
+//        for (NotesModel sub : m.listNotes) {
+//            //Если нужно отрисовывать поддерево
+//            if (sub.isShowN == true) {
+//                //То рисуем его
+//                m.listNotes..positionCurrThis = count;
+//                count++;
+//                appendList(data, sub, null, 0);
+//
+//            }
+//        }
+        for (int i = 0; i < m.listNotes.size(); i++){
+            if (m.listNotes.get(i).isShowN == true){
+                m.listNotes.get(i).positionCurrThis = count;
+                count++;
+                appendList(data, m.listNotes.get(i), null, 0 );
+            }
         }
+         count = 0;
         return data;
+
     }
 
     public void deleteElement (int positionP, NoteWrapper element) {

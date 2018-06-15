@@ -84,6 +84,7 @@ public class NoteBook extends Base {
      * @return плоский список записей
      */
     public List<NoteWrapper> getList (int position) {
+        int count = 0;
         //Создание плоского списка
         List<NoteWrapper> data = new ArrayList<>();
 
@@ -96,6 +97,7 @@ public class NoteBook extends Base {
             if (sub.isShowN == true)
                 //То рисуем его
                 appendList(data, sub, null, 0);
+                sub.
         }
         return data;
     }

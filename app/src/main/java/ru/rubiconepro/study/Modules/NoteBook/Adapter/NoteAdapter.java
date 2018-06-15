@@ -147,7 +147,11 @@ public class NoteAdapter extends IAdapter  {
 
                 if (wPar2.parent != null) {
             //      int index = wPar2.parent.
-                  wPar2.parent.notesList.add(position - 1, nm);
+                    if (position != 0) {
+                        wPar2.parent.notesList.add((position - 1), nm);
+                    } else {
+                        wPar2.parent.notesList.add(position, nm);
+                    }
                 } else {
 
                     NoteWrapper wPar = new NoteWrapper();
@@ -159,8 +163,12 @@ public class NoteAdapter extends IAdapter  {
                     wPar.model = nmNew;
                     wPar.parent = null;
                     wPar.level = 0;
-                    positionNote = position;
-                    NoteBook.instance.addNote(nmNew, positionPart, positionNote);
+                    if (w.level == 1){
+                        NoteBook.instance.addNote(nmNew, positionPart, -1);
+                    } else {
+                        positionNote = position;
+                        NoteBook.instance.addNote(nmNew, positionPart, positionNote);
+                    }
                 }
             }
         }

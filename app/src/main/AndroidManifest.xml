@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.rubiconepro.study">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,23 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Modules.User.Layout.UserLogin"></activity>
+        <activity android:name=".Modules.User.Layout.UserRegister" />
+        <activity android:name=".Modules.NoteBook.Layout.Part">
         </activity>
-        <activity android:name=".Modules.User.Layout.UserLogin" >
-
-
-        </activity>
-        <activity android:name=".Modules.User.Layout.UserRegister"></activity>
-        <activity android:name=".Modules.NoteBook.Layout.Part" >
+        <activity android:name=".Modules.NoteBook.Layout.Note" />
+        <activity android:name=".Modules.NoteBook.Layout.NotesAdd" />
+        <activity android:name=".Modules.Test.Layout.TestRequest">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.NoteBook.Layout.Note"/>
-        <activity android:name=".Modules.NoteBook.Layout.NotesAdd"/>
     </application>
 
 </manifest>

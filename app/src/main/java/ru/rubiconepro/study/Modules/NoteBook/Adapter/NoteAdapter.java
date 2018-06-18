@@ -113,10 +113,22 @@ public class NoteAdapter extends IAdapter  {
         NotesModel nm = new NotesModel();
         nm.title = w.model.title;
         nm.text = w.model.text;
-        nm.notesList = w.model.notesList;
+      //  nm.notesList = w.model.notesList;
         nm.isShowN = w.model.isShowN;
 
-        w.model.notesList.add(nm);
+        int indexThis = w.parent.positionCurrThis;
+        int positionBack = position - 1;
+        for (int i = 0; i < w.parent.notesList.size(); i++){
+            if (w.parent.notesList.equals(w.model)){
+                if (i != 0) {
+                    w.parent.notesList.get((i - 1)).notesList.add(nm);
+                } else {
+
+                }
+            }
+        }
+
+   //     w.parent.notesList.get(positionBack).notesList.add(nm);
 
   //      NoteBook.instance.deleteElement(positionPart, data.get(position));
 

@@ -80,8 +80,8 @@ public class NoteBook extends Base {
 //                }
                 for (int i = 0; i < model.notesList.size(); i++) {
                     if (model.notesList.get(i).isShowN == true) {
-  //                      model.notesList.get(i).positionCurrThis = count;
-  //                      count++;
+                        model.notesList.get(i).positionCurrThis = count;
+                        count++;
                         appendList(data, model.notesList.get(i), model, level + 1);
                     }
                 }
@@ -95,6 +95,7 @@ public class NoteBook extends Base {
      */
     public List<NoteWrapper> getList (int position) {
 
+        count = 0;
         //Создание плоского списка
         List<NoteWrapper> data = new ArrayList<>();
 
@@ -119,7 +120,7 @@ public class NoteBook extends Base {
                 appendList(data, m.listNotes.get(i), null, 0 );
             }
         }
-         count = 0;
+
         return data;
 
     }

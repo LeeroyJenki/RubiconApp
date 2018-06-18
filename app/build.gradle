@@ -29,4 +29,5 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.0'
     implementation 'com.carrotsearch:hppc:0.8.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'io.requery:sqlite-android:3.24.0'
 }

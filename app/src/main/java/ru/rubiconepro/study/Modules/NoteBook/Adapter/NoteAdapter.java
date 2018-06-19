@@ -113,28 +113,35 @@ public class NoteAdapter extends IAdapter  {
         NotesModel nm = new NotesModel();
         nm.title = w.model.title;
         nm.text = w.model.text;
-      //  nm.notesList = w.model.notesList;
+        nm.notesList = w.model.notesList;
+        nm.positionCurrThis = w.model.positionCurrThis;
         nm.isShowN = w.model.isShowN;
 
-        int indexThis = w.parent.positionCurrThis;
-        int positionBack = position - 1;
-        for (int i = 0; i < w.parent.notesList.size(); i++){
-            if (w.parent.notesList.equals(w.model)){
-                if (i != 0) {
-                    w.parent.notesList.get((i - 1)).notesList.add(nm);
-                } else {
+        if(w.parent != null) {
+            for (int i = 0; i < w.parent.notesList.size(); i++) {
 
+                if (w.parent.notesList.get(i).equals(w.model)) {
+                    if (i != 0) {
+                        w.parent.notesList.get((i - 1)).notesList.add(nm);
+                        NoteBook.instance.deleteElement(positionPart, data.get(position));
+                    } else {
+                        NotesModel nmN = new NotesModel();
+                        nmN.title = w.model.title;
+                        nmN.text = w.model.text;
+                        nmN.isShowN = w.model.isShowN;
+                        nmN.positionCurrThis = w.model.positionCurrThis;
+                        w.parent.notesList.get((i)).notesList.add(nmN);
+                    }
                 }
             }
+        } else {
+            NotesModel nmN2 = new NotesModel();
+            nmN2.title = w.model.title;
+            nmN2.text = w.model.text;
+            nmN2.isShowN = w.model.isShowN;
+            nmN2.positionCurrThis = w.model.positionCurrThis;
+            w.model.notesList.add(nmN2);
         }
-
-   //     w.parent.notesList.get(positionBack).notesList.add(nm);
-
-  //      NoteBook.instance.deleteElement(positionPart, data.get(position));
-
-
- //       data.remove(data.get(position).toString());
- //         data.remove(w);
 
 
         this.reloadData();
@@ -159,12 +166,16 @@ public class NoteAdapter extends IAdapter  {
                 wPar2 = data.get(i);
 
                 if (wPar2.parent != null) {
-                  int index = wPar2.parent.positionCurrThis;
-                    if (position != 0) {
-                        wPar2.parent.notesList.add(index, nm);
-                    } else {
-                        wPar2.parent.notesList.add(indexThis, nm);
+                    int index = 0;
+                    for (int j = 0; j < wPar2.parent.notesList.size(); j++) {
+                        if (wPar2.parent.notesList.get(j).equals(wPar2.model)) {
+                            index = j;
+                   //         wPar2.parent.notesList.add(j, nm);
+
+                        }
                     }
+                    wPar2.parent.notesList.add(index, nm);
+
                 } else {
 
                     NoteWrapper wPar = new NoteWrapper();

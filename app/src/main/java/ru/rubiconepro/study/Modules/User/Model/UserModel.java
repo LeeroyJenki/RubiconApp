@@ -85,4 +85,9 @@ public class UserModel extends BaseModel {
     public String getPassword() {
         return password;
     }
+
+    @Override
+    public String getIDName() {
+        return null;
+    }
 }

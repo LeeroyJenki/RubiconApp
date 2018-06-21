@@ -6,10 +6,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import okhttp3.Request;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import ru.rubiconepro.study.Lib.NetHTTP.Interface.IRequester;
 import ru.rubiconepro.study.Lib.NetHTTP.Model.ResponceModel;
 import ru.rubiconepro.study.Lib.NetHTTP.Requester;
+import ru.rubiconepro.study.Modules.StaticText.Model.StaticTextModel;
 import ru.rubiconepro.study.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestRequest extends AppCompatActivity implements View.OnClickListener, IRequester {
 
@@ -38,6 +44,26 @@ public class TestRequest extends AppCompatActivity implements View.OnClickListen
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+
+        JSONArray arr;
+
+        List<StaticTextModel> models = new ArrayList<>();
+
+        try {
+            arr = new JSONArray(s);
+            for (int i = 0; i < arr.length(); i++) {
+                models.add(new StaticTextModel(arr.getJSONObject(i)));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        Toast.makeText(this, "Items - " + models.size(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void AllDone() {
+
     }
 }

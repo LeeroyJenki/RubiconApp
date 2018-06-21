@@ -4,4 +4,5 @@ import ru.rubiconepro.study.Lib.NetHTTP.Model.ResponceModel;
 
 public interface IRequester {
     void RequestDone(ResponceModel model);
+    void AllDone();
 }

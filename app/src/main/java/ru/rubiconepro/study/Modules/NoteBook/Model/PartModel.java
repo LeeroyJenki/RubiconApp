@@ -11,6 +11,11 @@ public class PartModel extends BaseModel implements Serializable {
     public String title; //Название категории
     public List<NotesModel> listNotes; //Записи которые входят в эту категорию
 
+    @Override
+    public String getIDName() {
+        return null;
+    }
+
     public PartModel() {
         title = "";
         listNotes = new ArrayList<>();

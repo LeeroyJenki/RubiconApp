@@ -29,6 +29,7 @@ public class Requester extends AsyncTask<String, String, String> {
 
             Request req = new Request.Builder()
                     .url("http://rubiconepro.fvds.ru/web/api/RStatic.php")
+                    .addHeader("test", "test")
                     .post(new FormBody.Builder()
                             .add("method", "add")
                             .add("name", "name")
@@ -70,6 +71,10 @@ public class Requester extends AsyncTask<String, String, String> {
 //        public tt addB(int b) {
 //            this.b = b;
 //            return this;
+//        }
+//
+//        public void f (){
+//            tt variable = new tt().addA(1).addB(56);
 //        }
 //    }
 }

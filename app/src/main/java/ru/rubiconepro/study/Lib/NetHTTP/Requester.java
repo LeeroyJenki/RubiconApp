@@ -40,5 +40,12 @@ public class Requester extends AsyncTask<Request, ResponceModel, Void> {
         return null;
     }
 
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+
+        delegate.AllDone();
+    }
+
 
 }

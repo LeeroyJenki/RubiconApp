@@ -8,9 +8,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public abstract class BaseModel {
-    @ModelAttribute(fieldName = "Id", defValue = "-1")
+    //@ModelAttribute(fieldName = "Id", defValue = "-1")
     private Integer Id;               //ID записи
-    @ModelAttribute(fieldName = "number", defValue = "N1")
+    //@ModelAttribute(fieldName = "number", defValue = "N1")
     private String number;            //Уникальный идентификатор записи
     private Date createdtime;         //Время создания записи
     private Date modifiedtime;        //Время изменения записи

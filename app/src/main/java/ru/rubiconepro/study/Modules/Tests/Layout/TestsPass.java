@@ -28,7 +28,7 @@ import java.util.List;
  *
  * TODO добавить документацию по классу отображения результата
  */
-public class TestsPass extends AppCompatActivity {
+public class TestsPass extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * Описываем компонентя формы
@@ -59,8 +59,11 @@ public class TestsPass extends AppCompatActivity {
         btnNext = findViewById(R.id.btnNext);
         btnPrev = findViewById(R.id.btnPrev);
 
-        btnPrev.setVisibility(View.INVISIBLE);
-        btnNext.setVisibility(View.INVISIBLE);
+        btnPrev.setVisibility(View.VISIBLE);
+        btnNext.setVisibility(View.VISIBLE);
+
+        btnPrev.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
 
         listAdapter = new TestsListAdapter(this);
         lstAnswers.setAdapter(listAdapter);
@@ -85,7 +88,29 @@ public class TestsPass extends AppCompatActivity {
         wvDescription.loadDataWithBaseURL("", model.getText(), "text/html", "UTF-8", "");
 
         listAdapter.setCurrent(index);
+        currentIndex = index;
     }
 
 
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btnPrev){
+            currentIndex--;
+            if (currentIndex >= 0) {
+                drawQuestion(currentIndex);
+            } else {
+                currentIndex = 0;
+            }
+        }
+
+        if (view.getId() == R.id.btnNext){
+            currentIndex++;
+            if(currentIndex <= (questions.size()-1)) {
+                drawQuestion(currentIndex);
+            } else  {
+                currentIndex = questions.size()-1;
+            }
+        }
+
+    }
 }

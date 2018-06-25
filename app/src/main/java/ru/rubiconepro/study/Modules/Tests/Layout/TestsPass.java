@@ -8,7 +8,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import ru.rubiconepro.study.Modules.Tests.Adapter.TestsListAdapter;
+import ru.rubiconepro.study.Modules.Tests.Model.TestsNodeModel;
+import ru.rubiconepro.study.Modules.Tests.Tests;
 import ru.rubiconepro.study.R;
+
+import java.util.List;
 
 /**
  * Класс для прохождения тестов.
@@ -37,12 +41,16 @@ public class TestsPass extends AppCompatActivity {
 
     TestsListAdapter listAdapter;
 
+
+    List<TestsNodeModel> questions;
+    int currentIndex = 0;
+
     /**
      * Функция поиска компонентов
      * вызывается в конструкторе
      */
     private void initComponents() {
-        this.tvName = findViewById(R.id.tvName);
+        tvName = findViewById(R.id.tvName);
         wvDescription = findViewById(R.id.wvDescription);
 
         wvDescription.getSettings().setJavaScriptEnabled(true);
@@ -64,6 +72,19 @@ public class TestsPass extends AppCompatActivity {
         setContentView(R.layout.activity_tests_pass);
 
         initComponents();
+
+        questions = Tests.Current().getList();
+
+        drawQuestion(0);
+    }
+
+    private void drawQuestion(int index) {
+        TestsNodeModel model =  questions.get(index);
+
+        tvName.setText(model.getName());
+        wvDescription.loadDataWithBaseURL("", model.getText(), "text/html", "UTF-8", "");
+
+        listAdapter.setCurrent(index);
     }
 
 

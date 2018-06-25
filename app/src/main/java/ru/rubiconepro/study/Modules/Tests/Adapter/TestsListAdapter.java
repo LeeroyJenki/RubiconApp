@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Switch;
 import ru.rubiconepro.study.Modules.Tests.Model.TestsAnswerModel;
 import ru.rubiconepro.study.Modules.Tests.Model.TestsNodeModel;
 import ru.rubiconepro.study.Modules.Tests.Tests;
@@ -75,7 +76,10 @@ public class TestsListAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.tests_list_item, viewGroup, false);
         }
 
-        //TODO Заполнить данные
+        TestsAnswerModel model = answers.get(i);
+        Switch sw = view.findViewById(R.id.swAnswer);
+        sw.setText(model.getText());
+        sw.setChecked(model.getRight());
 
         return view;
     }

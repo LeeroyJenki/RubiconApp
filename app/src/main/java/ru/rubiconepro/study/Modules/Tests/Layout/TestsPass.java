@@ -6,12 +6,17 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import ru.rubiconepro.study.Modules.Tests.Adapter.TestsListAdapter;
+import ru.rubiconepro.study.Modules.Tests.Model.TestsAnswerModel;
 import ru.rubiconepro.study.Modules.Tests.Model.TestsNodeModel;
 import ru.rubiconepro.study.Modules.Tests.Tests;
 import ru.rubiconepro.study.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,9 +46,14 @@ public class TestsPass extends AppCompatActivity implements View.OnClickListener
 
     TestsListAdapter listAdapter;
 
+    TestsNodeModel currentModel;
+
 
     List<TestsNodeModel> questions;
+    List<TestsNodeModel> questAnswUser;
     int currentIndex = 0;
+    int countRightAnswer = 0;
+
 
     /**
      * Функция поиска компонентов
@@ -77,12 +87,14 @@ public class TestsPass extends AppCompatActivity implements View.OnClickListener
         initComponents();
 
         questions = Tests.Current().getList();
+        questAnswUser = new ArrayList<>();
 
         drawQuestion(0);
     }
 
     private void drawQuestion(int index) {
         TestsNodeModel model =  questions.get(index);
+        currentModel = questions.get(index);
 
         tvName.setText(model.getName());
         wvDescription.loadDataWithBaseURL("", model.getText(), "text/html", "UTF-8", "");
@@ -95,22 +107,95 @@ public class TestsPass extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnPrev){
-            currentIndex--;
-            if (currentIndex >= 0) {
-                drawQuestion(currentIndex);
-            } else {
-                currentIndex = 0;
-            }
+            goPrew();
         }
 
         if (view.getId() == R.id.btnNext){
-            currentIndex++;
-            if(currentIndex <= (questions.size()-1)) {
-                drawQuestion(currentIndex);
-            } else  {
-                currentIndex = questions.size()-1;
-            }
+            goNext();
         }
 
     }
+
+    private  void  goPrew(){
+        currentIndex--;
+        if (currentIndex >= 0) {
+
+            drawQuestion(currentIndex);
+        } else {
+            currentIndex = 0;
+        }
+    }
+
+    private  void  goNext(){
+        currentIndex++;
+        TestsNodeModel tnm = new TestsNodeModel();
+        tnm.setName(tvName.getText().toString());
+        tnm. setText(currentModel.getText());
+
+        List<TestsAnswerModel> tams = new ArrayList<>();
+
+        tams = currentModel.getAnswers();
+        
+        tams.get(0).setRight(false);
+        tnm.addAnswer(tams.get(0));
+        questAnswUser.add(tnm);
+        tams.get(1).setRight(false);
+        tnm.addAnswer(tams.get(1));
+        questAnswUser.add(tnm);
+        tams.get(2).setRight(false);
+        tnm.addAnswer(tams.get(2));
+        questAnswUser.add(tnm);
+        tams.get(3).setRight(false);
+        tnm.addAnswer(tams.get(3));
+        questAnswUser.add(tnm);
+
+
+        if(currentIndex <= (questions.size()-1)) {
+
+
+//            final Switch switchAnsw = findViewById(R.id.swAnswer);
+//            switchAnsw.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            listAdapter.setSwitchAnsw(switchAnsw.isChecked());
+//            tams
+//        }
+//        });
+//            lstAnswers.getAdapter().getItem(0).;
+//            lstAnswers.getI
+
+//           for (int i = 0; i < tams.size(); i++) {
+//               tams.get(i).setRight(true);
+//               tnm.addAnswer(tams.get(i));
+//            questAnswUser.add(tnm);
+//           }
+
+
+
+            isCheckAnswer(currentModel, tnm);
+
+            drawQuestion(currentIndex);
+        } else if (currentIndex == questions.size()) {
+
+            isCheckAnswer(currentModel, tnm);
+
+            Toast.makeText(this, "Вы правильно ответили на " + countRightAnswer + " из " + questions.size(), Toast.LENGTH_SHORT).show();
+            currentIndex = questions.size() - 1;
+        }
+    }
+
+    public  void isCheckAnswer (TestsNodeModel curMod, TestsNodeModel userMod){
+        int count = 0;
+        for (int i = 0; i < curMod.getAnswers().size(); i++){
+           if (curMod.getAnswers().get(i).getRight().equals(userMod.getAnswers().get(i).getRight())){
+             count++;
+           }
+        }
+        if (curMod.getAnswers().size() == count){
+            countRightAnswer++;
+        }
+    };
+
+
+
 }

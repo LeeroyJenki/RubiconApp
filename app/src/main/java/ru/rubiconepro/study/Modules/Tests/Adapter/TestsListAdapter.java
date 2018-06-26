@@ -81,6 +81,31 @@ public class TestsListAdapter extends BaseAdapter {
         sw.setText(model.getText());
         sw.setChecked(model.getRight());
 
+//        sw.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            adapter.setEditable(sw.isChecked());
+//        }
+//        });
+
         return view;
     }
+
+    public  void  setSwitchAnsw (){
+
+    };
+
+    public  boolean isCheckSwitch (View view, int i){
+        Switch sw = view.findViewById(R.id.swAnswer);
+        return sw.isChecked();
+
+    };
+
+//    final Switch switchEdit = findViewById(R.id.switchEdit);
+//        switchEdit.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            adapter.setEditable(switchEdit.isChecked());
+//        }
+//    });
 }

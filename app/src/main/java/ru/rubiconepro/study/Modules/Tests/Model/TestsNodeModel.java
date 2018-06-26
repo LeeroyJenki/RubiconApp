@@ -50,5 +50,16 @@ public class TestsNodeModel extends BaseModel {
         return "ID";
     }
 
+    public boolean isRightQuestion(){
+        boolean right = true;
+
+        for (TestsAnswerModel m : answers) {
+            if (!m.isRightAnswer())
+                right = false;
+        }
+
+        return right;
+    }
+
 
 }

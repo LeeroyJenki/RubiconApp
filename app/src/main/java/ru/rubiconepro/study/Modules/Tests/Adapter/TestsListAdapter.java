@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Класс для управления и отображения отоветами на тест
  */
-public class TestsListAdapter extends BaseAdapter {
+public class TestsListAdapter extends BaseAdapter implements View.OnClickListener {
 
     /**
      * Обязательные элементы
@@ -79,8 +79,19 @@ public class TestsListAdapter extends BaseAdapter {
         TestsAnswerModel model = answers.get(i);
         Switch sw = view.findViewById(R.id.swAnswer);
         sw.setText(model.getText());
-        sw.setChecked(model.getRight());
+        sw.setChecked(model.getUserAnswer());
+
+        sw.setTag(i);
+        sw.setOnClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        Switch s = (Switch)view;
+
+        int index = (int)s.getTag();
+        answers.get(index).setUserAnswer(s.isChecked());
     }
 }

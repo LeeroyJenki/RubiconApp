@@ -7,6 +7,7 @@ import ru.rubiconepro.study.Modules.Base.Model.BaseModel;
  */
 public class TestsAnswerModel extends BaseModel {
 
+    //Переменные из АПИ
     private String text;
     private Boolean isRight;
 
@@ -29,10 +30,29 @@ public class TestsAnswerModel extends BaseModel {
     public TestsAnswerModel() {
         text = "";
         isRight = false;
+        userAnswer = false;
     }
 
     @Override
     public String getIDName() {
         return "ID";
     }
+
+
+
+    //Переменные для внутренних нужд
+    private Boolean userAnswer;
+    public Boolean getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(Boolean userAnswer) {
+        this.userAnswer = userAnswer;
+    }
+
+    public boolean isRightAnswer() {
+        return isRight == userAnswer;
+    }
+
+
 }

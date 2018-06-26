@@ -7,6 +7,8 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import ru.rubiconepro.study.Modules.Tests.Adapter.TestsListAdapter;
 import ru.rubiconepro.study.Modules.Tests.Model.TestsNodeModel;
 import ru.rubiconepro.study.Modules.Tests.Tests;
@@ -28,7 +30,7 @@ import java.util.List;
  *
  * TODO добавить документацию по классу отображения результата
  */
-public class TestsPass extends AppCompatActivity {
+public class TestsPass extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * Описываем компонентя формы
@@ -59,8 +61,12 @@ public class TestsPass extends AppCompatActivity {
         btnNext = findViewById(R.id.btnNext);
         btnPrev = findViewById(R.id.btnPrev);
 
-        btnPrev.setVisibility(View.INVISIBLE);
-        btnNext.setVisibility(View.INVISIBLE);
+        btnPrev.setVisibility(View.VISIBLE);
+        btnNext.setVisibility(View.VISIBLE);
+
+
+        btnPrev.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
 
         listAdapter = new TestsListAdapter(this);
         lstAnswers.setAdapter(listAdapter);
@@ -88,4 +94,46 @@ public class TestsPass extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+
+        if (view.getId() == R.id.btnPrev){
+            goPrew();
+        }
+
+        if (view.getId() == R.id.btnNext){
+            goNext();
+        }
+    }
+
+    private  void  goPrew(){
+        currentIndex--;
+        if (currentIndex >= 0) {
+            drawQuestion(currentIndex);
+        } else {
+            currentIndex = 0;
+        }
+
+    }
+
+    private  void  goNext() {
+        if (currentIndex + 1 >= questions.size()) {
+            checkAnswers();
+            return;
+        }
+
+        currentIndex++;
+        drawQuestion(currentIndex);
+    }
+
+    private void checkAnswers() {
+        int rightAnswers = 0;
+
+        for (TestsNodeModel node : questions) {
+            if (node.isRightQuestion())
+                rightAnswers++;
+        }
+
+        Toast.makeText(this, "Правильно отвечено на " + rightAnswers + " из " + questions.size(), Toast.LENGTH_SHORT).show();
+    }
 }

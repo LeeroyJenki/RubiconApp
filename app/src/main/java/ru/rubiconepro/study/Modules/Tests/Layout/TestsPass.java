@@ -53,6 +53,7 @@ public class TestsPass extends AppCompatActivity implements View.OnClickListener
     List<TestsNodeModel> questAnswUser;
     int currentIndex = 0;
     int countRightAnswer = 0;
+    int countRightAnswer2 = 0;
 
 
     /**
@@ -178,8 +179,10 @@ public class TestsPass extends AppCompatActivity implements View.OnClickListener
         } else if (currentIndex == questions.size()) {
 
             isCheckAnswer(currentModel, tnm);
+ //           isCheckAnswer2();
 
             Toast.makeText(this, "Вы правильно ответили на " + countRightAnswer + " из " + questions.size(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Is right " + countRightAnswer2 + " for " + questions.size(), Toast.LENGTH_SHORT).show();
             currentIndex = questions.size() - 1;
         }
     }
@@ -194,7 +197,23 @@ public class TestsPass extends AppCompatActivity implements View.OnClickListener
         if (curMod.getAnswers().size() == count){
             countRightAnswer++;
         }
-    };
+    }
+
+    public  void isCheckAnswer2 (){
+        int count = 0;
+        for (int i = 0; i < questAnswUser.size(); i++){
+            for (int j = 0; j < questAnswUser.get(i).getAnswers().size(); j++){
+            if (questAnswUser.get(i).getAnswers().get(j).getRight().equals(questions.get(i).getAnswers().get(j).getRight())){
+                count++;
+            }
+
+            }
+            if ((questAnswUser.get(i).getAnswers().size() == count)){
+                countRightAnswer2++;
+            }
+        }
+
+    }
 
 
 

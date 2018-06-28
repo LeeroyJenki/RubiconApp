@@ -1,7 +1,9 @@
 package ru.rubiconepro.study.Modules.Schedule.Layout;
 
+import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.CalendarView;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
@@ -21,7 +23,7 @@ public class SchedulerMainLayout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scheduler_main_layout);
 
-        List<EventDay> events = new ArrayList<>();
+        List<CalendarContract.EventDays> events = new ArrayList<>();
 
         List<DayModel> models = Scheduler.Current().getModels();
 

@@ -11,6 +11,14 @@ public class DayModel extends BaseModel {
     private Calendar eventDate;
     private List<EventModel> events;
 
+    public void setEvents(List<EventModel> events) {
+        this.events = events;
+    }
+
+    public List<EventModel> getEvents() {
+        return events;
+    }
+
     @Override
     public String getIDName() {
         return null;

@@ -7,6 +7,7 @@ import java.util.List;
 
 import ru.rubiconepro.study.Modules.Base.Base;
 import ru.rubiconepro.study.Modules.Schedule.Model.DayModel;
+import ru.rubiconepro.study.Modules.Schedule.Model.EventModel;
 
 public class Scheduler extends Base {
     /**
@@ -34,10 +35,24 @@ public class Scheduler extends Base {
             DayModel m = new DayModel();
             m.setEventDate(c);
 
-            models.add(m);
+
 
             //TODO Добавить внутряшку первой вложенности (EventModel)
             //TODO Сделать отображение
+
+
+            List<EventModel> evms = new ArrayList<>();
+            for (int j = 0; j < 5; j++) {
+             EventModel evm = new EventModel();
+                evm.setName("NameEvent - " + j);
+                evm.setType("SimpleEvent");
+                Date d = new Date();
+                evm.setTime(d);
+                evms.add(evm);
+            }
+            m.setEvents(evms);
+
+            models.add(m);
         }
     }
 

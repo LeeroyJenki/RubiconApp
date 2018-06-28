@@ -1,12 +1,12 @@
-package ru.rubiconepro.study.Modules.Schedule;
+package ru.rubiconepro.study.Modules.Scheduler;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import ru.rubiconepro.study.Modules.Base.Base;
-import ru.rubiconepro.study.Modules.Schedule.Model.DayModel;
+import ru.rubiconepro.study.Modules.Scheduler.Model.DayModel;
+import ru.rubiconepro.study.Modules.Scheduler.Model.EventModel;
 
 public class Scheduler extends Base {
     /**
@@ -24,6 +24,7 @@ public class Scheduler extends Base {
 
     private Scheduler() {
         for (int i = 0; i < 10; i++) {
+            //Тут мы создаем первый уровень
             Calendar c = Calendar.getInstance();
             c.set(Calendar.HOUR, 0);
             c.set(Calendar.MINUTE, 0);
@@ -35,6 +36,12 @@ public class Scheduler extends Base {
             m.setEventDate(c);
 
             models.add(m);
+
+            //Второй уровень данных
+
+            for (int j = 0; j < 10; j++) {
+                m.addEvent(new EventModel("Элемент - " + j));
+            }
 
             //TODO Добавить внутряшку первой вложенности (EventModel)
             //TODO Сделать отображение

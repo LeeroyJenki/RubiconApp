@@ -1,4 +1,4 @@
-package ru.rubiconepro.study.Modules.Schedule.Model;
+package ru.rubiconepro.study.Modules.Scheduler.Model;
 
 import ru.rubiconepro.study.Modules.Base.Model.BaseModel;
 

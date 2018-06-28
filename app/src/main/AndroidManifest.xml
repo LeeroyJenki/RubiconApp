@@ -23,7 +23,7 @@
         <activity android:name=".Modules.StaticText.Layout.StaticTextList"></activity>
         <activity android:name=".Modules.StaticText.Layout.StaticTextDetail" />
         <activity android:name=".Modules.Tests.Layout.TestsPass"></activity>
-        <activity android:name=".Modules.Schedule.Layout.SchedulerMainLayout">
+        <activity android:name=".Modules.Scheduler.Layout.SchedulerMainLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -8,7 +8,9 @@ import ru.rubiconepro.study.Modules.Base.Model.BaseModel;
 
 public class DayModel extends BaseModel {
 
+    //Для какого дня
     private Calendar eventDate;
+    //Какие события
     private List<EventModel> events;
 
     public DayModel() {

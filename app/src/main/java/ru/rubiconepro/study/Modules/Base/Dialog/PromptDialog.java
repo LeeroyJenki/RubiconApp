@@ -8,10 +8,18 @@ import android.widget.EditText;
 
 import ru.rubiconepro.study.Modules.Base.Interface.IPromptDialog;
 
+//Диалог запроса строки от пользователя, с выводом
+//диалогово окошка для этого
 public class PromptDialog {
     AlertDialog.Builder builder;
     EditText input;
 
+    /**
+     * Конструктор класса который принимает
+     * @param context Контекст выполнения(Отрисовки)
+     * @param title Заголовок окна
+     * @param delegate Делегат завершения диалога (см. IPromptDialog)
+     */
     public PromptDialog(Context context, String title, final IPromptDialog delegate) {
         builder = new AlertDialog.Builder(context);
         builder.setTitle(title);

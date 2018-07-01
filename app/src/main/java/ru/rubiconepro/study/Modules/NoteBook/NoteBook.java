@@ -82,4 +82,9 @@ public class NoteBook extends Base {
         }
     }
 
+
+    protected void storeResponce(String data) throws Exception {
+
+    }
+
 }

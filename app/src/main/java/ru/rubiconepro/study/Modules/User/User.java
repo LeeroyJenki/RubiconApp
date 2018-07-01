@@ -13,4 +13,8 @@ public class User extends Base {
     }
     
     /*-----------------------------------*/
+
+    protected void storeResponce(String data) throws Exception {
+
+    }
 }

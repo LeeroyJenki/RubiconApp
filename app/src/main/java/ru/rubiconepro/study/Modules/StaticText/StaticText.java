@@ -33,5 +33,7 @@ public class StaticText extends Base {
     }
 
 
+    protected void storeResponce(String data) throws Exception {
 
+    }
 }

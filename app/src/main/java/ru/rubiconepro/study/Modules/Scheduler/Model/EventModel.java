@@ -8,8 +8,11 @@ import ru.rubiconepro.study.Modules.Base.Model.BaseModel;
 
 public class EventModel extends BaseModel {
 
+    //Название события
     private String name;
+    //Тип события
     private String type;
+    //Время события
     private Calendar time;
 
     private List<SubModel> subs;

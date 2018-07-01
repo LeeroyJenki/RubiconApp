@@ -44,4 +44,9 @@ public class Tests extends Base {
     public List<TestsNodeModel> getList() {
         return items;
     }
+
+
+    protected void storeResponce(String data) throws Exception {
+
+    }
 }

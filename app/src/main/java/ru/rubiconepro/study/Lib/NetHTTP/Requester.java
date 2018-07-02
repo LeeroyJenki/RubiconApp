@@ -30,8 +30,14 @@ public class Requester extends AsyncTask<Request, ResponceModel, Void> {
         for (int i = 0; i < requests.length; i++) {
             Request r = requests[i];
             try {
-                Response resp = client.newCall(r).execute();
-                publishProgress(new ResponceModel(i, r, resp));
+                try (Response resp = client.newCall(r).execute()) {
+                    byte[] body = null;
+                    if (resp.isSuccessful()) {
+                        body = resp.body().bytes();
+                    }
+                    publishProgress(new ResponceModel(i, r, resp, body));
+                }
+
             } catch (Exception ex) {
                 ex.printStackTrace();
                 publishProgress(new ResponceModel(i, r));

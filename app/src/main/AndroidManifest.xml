@@ -14,23 +14,22 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Modules.User.Layout.UserLogin" />
         <activity android:name=".Modules.User.Layout.UserRegister" />
-        <activity android:name=".Modules.NoteBook.Layout.Part" >
+        <activity android:name=".Modules.NoteBook.Layout.Part">
+
+        </activity>
+        <activity android:name=".Modules.NoteBook.Layout.Note" />
+        <activity android:name=".Modules.NoteBook.Layout.NotesAdd" />
+        <activity android:name=".Modules.Test.Test"></activity>
+        <activity android:name=".Modules.StaticText.Layout.StaticTextList" />
+        <activity android:name=".Modules.StaticText.Layout.StaticTextDetail" />
+        <activity android:name=".Modules.Tests.Layout.TestsPass" />
+        <activity android:name=".Modules.Scheduler.Layout.SchedulerMainLayout"></activity>
+        <activity android:name=".Modules.PDFView.Layout.ViewLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".Modules.NoteBook.Layout.Note" />
-        <activity android:name=".Modules.NoteBook.Layout.NotesAdd" />
-        <activity android:name=".Modules.Test.Test">
-
-        </activity>
-        <activity android:name=".Modules.StaticText.Layout.StaticTextList"></activity>
-        <activity android:name=".Modules.StaticText.Layout.StaticTextDetail" />
-        <activity android:name=".Modules.Tests.Layout.TestsPass"></activity>
-        <activity android:name=".Modules.Scheduler.Layout.SchedulerMainLayout">
-
         </activity>
     </application>
 

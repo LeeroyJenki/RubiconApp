@@ -13,7 +13,7 @@ import ru.rubiconepro.study.Lib.NetHTTP.Model.ResponceModel;
 import ru.rubiconepro.study.Lib.NetHTTP.Requester;
 import ru.rubiconepro.study.R;
 
-public class ViewLayout extends AppCompatActivity implements IRequester {
+public class PDFViewLayout extends AppCompatActivity {
 
     PDFView view;
 
@@ -23,24 +23,7 @@ public class ViewLayout extends AppCompatActivity implements IRequester {
         setContentView(R.layout.activity_view_layout);
 
         view = findViewById(R.id.pdfView);
-
-
-        Requester r = new Requester(this);
-        r.execute(new Request.Builder()
-                .url("http://www.pdf995.com/samples/pdf.pdf")
-                .build()
-        );
-
-        //view.fromUri(Uri.parse("http://www.pdf995.com/samples/pdf.pdf")).load();
-    }
-
-    @Override
-    public void RequestDone(ResponceModel model) {
-        view.fromBytes(model.responceBody).load();
-    }
-
-    @Override
-    public void AllDone() {
-
+        view.fromBytes(ru.rubiconepro.study.Modules.PDFView.PDFView.Current().getFile())
+            .load();
     }
 }

@@ -19,13 +19,14 @@ public abstract class Base implements IRequester {
     /*****************************************************/
     /****Функционал загрузки данных****/
 
-    protected abstract void storeResponce(String data) throws Exception;
+    protected abstract void storeResponce(byte[] data) throws Exception;
 
     //Делегат при помощи которого мы уведомляем удаленный класс о готовности данных
     private IDone doneDelegate;
 
     //Загрузка данных
     public void loadData(Request request, IDone delegate) {
+        doneDelegate = delegate;
         Requester r = new Requester(this);
         r.execute(request);
     }
@@ -41,8 +42,7 @@ public abstract class Base implements IRequester {
         }
 
         try {
-            String responceBoby = model.responce.body().string();
-            storeResponce(responceBoby);
+            storeResponce(model.responceBody);
         } catch (Exception ex) {
             ex.printStackTrace();
 

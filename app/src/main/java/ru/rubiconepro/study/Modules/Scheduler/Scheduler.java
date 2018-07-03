@@ -48,7 +48,7 @@ public class Scheduler extends Base {
         }
     }
 
-    protected void storeResponce(String data) throws Exception {
+    protected void storeResponce(byte[] data) throws Exception {
 
     }
 

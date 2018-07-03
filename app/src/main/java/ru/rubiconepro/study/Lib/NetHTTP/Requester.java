@@ -25,6 +25,7 @@ public class Requester extends AsyncTask<Request, ResponceModel, Void> {
         }
     }
 
+    //Выполнение в другом потоке
     @Override
     protected Void doInBackground(Request... requests) {
         for (int i = 0; i < requests.length; i++) {
@@ -32,9 +33,10 @@ public class Requester extends AsyncTask<Request, ResponceModel, Void> {
             try {
                 try (Response resp = client.newCall(r).execute()) {
                     byte[] body = null;
-                    if (resp.isSuccessful()) {
-                        body = resp.body().bytes();
-                    }
+                    body = resp.body().bytes();
+                    //НЕВЕРНО (будет выполнено во второй нитке)
+                    //onProgressUpdate(new ResponceModel(i, r, resp, body));
+                    //ВЕРНО
                     publishProgress(new ResponceModel(i, r, resp, body));
                 }
 

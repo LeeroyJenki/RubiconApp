@@ -27,6 +27,7 @@ public class TestLayout extends AppCompatActivity implements View.OnClickListene
 
         btn = findViewById(R.id.btn);
         edt = findViewById(R.id.edt);
+        edt.setText("http://www.africau.edu/images/default/sample.pdf");
 
         btn.setOnClickListener(this);
     }
@@ -36,23 +37,31 @@ public class TestLayout extends AppCompatActivity implements View.OnClickListene
 
 
         String str = edt.getText().toString();
-//        new RequestHelper(this,
-//                str,
-//                new Intent(this, PDFViewLayout.class));
+        new RequestHelper(this,
+                str,
+                new Intent(this, PDFViewLayout.class));
 
-        Request r = null;
-        try {
-            r = new Request.Builder().url(str).build();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            r = null;
-        }
-        if (r == null) {
-            Toast.makeText(this, "Запрос неверен!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        PDFView.Current().loadData(r,
-                this);
+//        Request r = null;
+//        try {
+//            r = new Request.Builder().url(str).build();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            r = null;
+//        }
+//        if (r == null) {
+//            Toast.makeText(this, "Запрос неверен!", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        PDFView.Current().loadData(r,
+//                this);
+//    }
+//
+//    @Override
+//    public void JobDone(boolean success) {
+//        if (!success) {
+//            Toast.makeText(this, "Что то пошло не так!", Toast.LENGTH_SHORT).show();
+//            return;
+//    }
     }
 
     @Override
@@ -64,4 +73,6 @@ public class TestLayout extends AppCompatActivity implements View.OnClickListene
         Intent i = new Intent(this, PDFViewLayout.class);
         startActivity(i);
     }
+
 }
+

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import okhttp3.Request;
+import ru.rubiconepro.study.Modules.Base.Dialog.PreloadDialog;
 import ru.rubiconepro.study.Modules.Base.Interface.IDone;
 import ru.rubiconepro.study.Modules.PDFView.Layout.PDFViewLayout;
 import ru.rubiconepro.study.Modules.PDFView.PDFView;
@@ -23,6 +24,8 @@ public class RequestHelper implements IDone {
         Request r = null;
         try {
             r = new Request.Builder().url(url).build();
+            new PreloadDialog(context);
+
         } catch (Exception ex) {
             ex.printStackTrace();
             r = null;
@@ -37,12 +40,24 @@ public class RequestHelper implements IDone {
 
     @Override
     public void JobDone(boolean success) {
-        if (!success) {
+ //       new PreloadDialog(context);
+            if (!success) {
             Toast.makeText(context, "Что то пошло не так!", Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent i = new Intent(context, nextView);
-        startActivity(i);
+        Intent i = new Intent(context, PDFViewLayout.class);
+
+        context.startActivity(i);
     }
+
+//    @Override
+//    public void JobDone(boolean success) {
+//        if (!success) {
+//            Toast.makeText(context, "Что то пошло не так!", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        Intent i = new Intent(context, nextView);
+//        startActivity(i);
+//    }
 }
 

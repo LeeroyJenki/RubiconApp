@@ -37,8 +37,9 @@ public abstract class Base implements IRequester {
         //Проверяем на нормальный ответ
         //Если в ответе код не равен 200 то в запросе произошла ошибка
         //см. https://developer.mozilla.org/ru/docs/Web/HTTP/Status
-        if (model.responce.code() != 200) {
+        if (model.responce == null || model.responce.code() != 200) {
             doneDelegate.JobDone(false);
+            return;
         }
 
         try {
@@ -47,6 +48,7 @@ public abstract class Base implements IRequester {
             ex.printStackTrace();
 
             doneDelegate.JobDone(false);
+            return;
         }
 
         doneDelegate.JobDone(true);

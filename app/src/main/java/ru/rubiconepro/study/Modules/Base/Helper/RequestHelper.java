@@ -18,13 +18,15 @@ import ru.rubiconepro.study.Modules.PDFView.PDFView;
 //3 - в случае успеха запускает view
 public class RequestHelper implements IDone {
     Context context;
+    PreloadDialog pd;
     public RequestHelper(Context context, String url, Intent nextView) {
         this.context = context;
 
         Request r = null;
         try {
             r = new Request.Builder().url(url).build();
-            new PreloadDialog(context);
+            pd = new PreloadDialog(context);
+            pd.show();
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -41,6 +43,7 @@ public class RequestHelper implements IDone {
     @Override
     public void JobDone(boolean success) {
  //       new PreloadDialog(context);
+        pd.close();
             if (!success) {
             Toast.makeText(context, "Что то пошло не так!", Toast.LENGTH_SHORT).show();
             return;
@@ -48,6 +51,7 @@ public class RequestHelper implements IDone {
         Intent i = new Intent(context, PDFViewLayout.class);
 
         context.startActivity(i);
+
     }
 
 //    @Override

@@ -15,7 +15,7 @@ import ru.rubiconepro.study.Modules.PDFView.Layout.PDFViewLayout;
 import ru.rubiconepro.study.Modules.PDFView.PDFView;
 import ru.rubiconepro.study.R;
 
-public class TestLayout extends AppCompatActivity implements View.OnClickListener, IDone {
+public class TestLayout extends AppCompatActivity implements View.OnClickListener {
 
     Button btn;
     EditText edt;
@@ -64,15 +64,7 @@ public class TestLayout extends AppCompatActivity implements View.OnClickListene
 //    }
     }
 
-    @Override
-    public void JobDone(boolean success) {
-        if (!success) {
-            Toast.makeText(this, "Что то пошло не так!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent i = new Intent(this, PDFViewLayout.class);
-        startActivity(i);
-    }
+
 
 }
 

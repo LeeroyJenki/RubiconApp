@@ -19,7 +19,13 @@
         <activity android:name=".Modules.NoteBook.Layout.Note" />
         <activity android:name=".Modules.NoteBook.Layout.NotesAdd" />
         <activity android:name=".Modules.Test.Test" />
-        <activity android:name=".Modules.StaticText.Layout.StaticTextList" />
+        <activity android:name=".Modules.StaticText.Layout.StaticTextList">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Modules.StaticText.Layout.StaticTextDetail" />
         <activity android:name=".Modules.Tests.Layout.TestsPass" />
         <activity android:name=".Modules.Scheduler.Layout.SchedulerMainLayout" />
@@ -27,11 +33,7 @@
 
         </activity>
         <activity android:name=".Modules.TestLayout.Layout.TestLayout">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

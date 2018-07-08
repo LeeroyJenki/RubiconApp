@@ -54,7 +54,7 @@ public class StaticTextList extends AppCompatActivity implements IRequester, Ada
         StaticText.Current().clearList();
         JSONArray arr;
         try {
-            arr = new JSONArray(model.responce.body().string());
+            arr = new JSONArray(new String(model.responceBody));
             for (int i = 0; i < arr.length(); i++) {
                 StaticText.Current().addElement(new StaticTextModel(arr.getJSONObject(i)));
             }

@@ -7,9 +7,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.FormBody;
+import okhttp3.Request;
+import ru.rubiconepro.study.Lib.NetHTTP.Interface.IRequester;
+import ru.rubiconepro.study.Lib.NetHTTP.Model.ResponceModel;
+import ru.rubiconepro.study.Lib.NetHTTP.Requester;
 import ru.rubiconepro.study.Modules.Base.Layout.BaseLayout;
 import ru.rubiconepro.study.Modules.User.Helper;
 import ru.rubiconepro.study.R;
@@ -38,7 +45,7 @@ import ru.rubiconepro.study.R;
  * кнопку регистрации нового пользователя
  */
 
-public class UserLogin extends BaseLayout implements View.OnClickListener {
+public class UserLogin extends BaseLayout implements View.OnClickListener, IRequester {
 
 
     Map<String, String> mp;
@@ -65,12 +72,8 @@ public class UserLogin extends BaseLayout implements View.OnClickListener {
         if (v.getId() == R.id.button2){
             Intent i = new Intent(this, UserRegister.class);
             startActivity(i);
+            return;
         }
-
-        Boolean eml;
-
-        String email1 = "admin@mail.com";
-        String password1 = "12345";
 
         EditText LoginString = findViewById(R.id.editText2);
         EditText PasswordString = findViewById(R.id.editText);
@@ -78,13 +81,74 @@ public class UserLogin extends BaseLayout implements View.OnClickListener {
         String email = LoginString.getText().toString();
         String password = PasswordString.getText().toString();
 
-        eml = Helper.isEmailValid(email);
+        new Requester(this).execute(
+                new Request.Builder()
+                .url("http://rubiconepro.fvds.ru/web/api/RUser.php")
+                .post(
+                    new FormBody.Builder()
+                        .add("method", "auth")
+                        .add("login", email)
+                        .add("pass", password)
+                        .build()
+                ).build()
+        );
 
-       // String f =  mp.get("admin@mail.com");
-        if((eml && email.equals(email1)) && (password.equals(password1))){
-            Toast.makeText(this, "YOU ARE IN :D", Toast.LENGTH_SHORT).show();
-        } else{
-            Toast.makeText(this, "INCORRECT PASSWORD OR EMAIL", Toast.LENGTH_SHORT).show();
+//        Boolean eml;
+//
+//        String email1 = "admin@mail.com";
+//        String password1 = "12345";
+//
+//
+//
+//        eml = Helper.isEmailValid(email);
+//
+//       // String f =  mp.get("admin@mail.com");
+//        if((eml && email.equals(email1)) && (password.equals(password1))){
+//            Toast.makeText(this, "YOU ARE IN :D", Toast.LENGTH_SHORT).show();
+//        } else{
+//            Toast.makeText(this, "INCORRECT PASSWORD OR EMAIL", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
+    @Override
+    public void RequestDone(ResponceModel model) {
+        JSONObject obj = null;
+        try {
+            obj = model.asJSONObject();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            Toast.makeText(this, "Ошибка данных", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        int errorID = 0;
+        String errorDesc = "";
+        String data = "";
+
+        try {
+            errorID = obj.getInt("ErrorID");
+            errorDesc = obj.getString("ErrorDescription");
+            data = obj.getString("Data");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            Toast.makeText(this, "Ошибка данных", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (errorID != 0) {
+            Toast.makeText(this, errorDesc, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    @Override
+    public void AllDone() {
+
     }
 }

@@ -6,6 +6,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import okhttp3.FormBody;
+import okhttp3.Request;
+import ru.rubiconepro.study.Lib.NetHTTP.Interface.IRequester;
+import ru.rubiconepro.study.Lib.NetHTTP.Model.ResponceModel;
+import ru.rubiconepro.study.Lib.NetHTTP.Requester;
 import ru.rubiconepro.study.Modules.Base.Layout.BaseLayout;
 import ru.rubiconepro.study.Modules.User.Helper;
 import ru.rubiconepro.study.R;
@@ -44,7 +51,7 @@ import ru.rubiconepro.study.R;
  * Проверка E-Mail на уникальность
  */
 
-public class UserRegister extends BaseLayout implements View.OnClickListener {
+public class UserRegister extends BaseLayout implements View.OnClickListener, IRequester {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,24 +81,77 @@ public class UserRegister extends BaseLayout implements View.OnClickListener {
         String Pass1 = Password1String.getText().toString();
         String PassConf = PasswordConfString.getText().toString();
 
-        if(NickName.equals("") ||
-                email.equals("")||
-                Pass1.equals("")||
-                PassConf.equals(""))
-        {
-            Toast.makeText(this, "Все поля помеченные * обязательны для заполнения", Toast.LENGTH_SHORT).show();
+        new Requester(this).execute(
+                new Request.Builder()
+                        .url("http://rubiconepro.fvds.ru/web/api/RUser.php")
+                        .post(
+                                new FormBody.Builder()
+                                        .add("method", "register")
+                                        .add("login", email)
+                                        .add("pass", Pass1)
+                                        .build()
+                        ).build()
+        );
+
+//        if(NickName.equals("") ||
+//                email.equals("")||
+//                Pass1.equals("")||
+//                PassConf.equals(""))
+//        {
+//            Toast.makeText(this, "Все поля помеченные * обязательны для заполнения", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if(!eml){
+//            Toast.makeText(this, "Ваша электронная почта не соответсвует формату", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if(!Pass1.equals(PassConf)){
+//            Toast.makeText(this, "Введённые Вами пароли не совпадают", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        if((eml) && (Pass1.equals(PassConf))){
+//            Toast.makeText(this, "Молодец", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
+    @Override
+    public void RequestDone(ResponceModel model) {
+        JSONObject obj = null;
+        try {
+            obj = model.asJSONObject();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            Toast.makeText(this, "Ошибка данных", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        if(!eml){
-            Toast.makeText(this, "Ваша электронная почта не соответсвует формату", Toast.LENGTH_SHORT).show();
+        int errorID = 0;
+        String errorDesc = "";
+        String data = "";
+
+        try {
+            errorID = obj.getInt("ErrorID");
+            errorDesc = obj.getString("ErrorDescription");
+            data = obj.getString("Data");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            Toast.makeText(this, "Ошибка данных", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        if(!Pass1.equals(PassConf)){
-            Toast.makeText(this, "Введённые Вами пароли не совпадают", Toast.LENGTH_SHORT).show();
+        if (errorID != 0) {
+            Toast.makeText(this, errorDesc, Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        if((eml) && (Pass1.equals(PassConf))){
-            Toast.makeText(this, "Молодец", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void AllDone() {
+
     }
 }

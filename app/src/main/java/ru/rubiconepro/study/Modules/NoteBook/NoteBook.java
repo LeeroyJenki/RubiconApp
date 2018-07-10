@@ -1,8 +1,11 @@
 package ru.rubiconepro.study.Modules.NoteBook;
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.rubiconepro.study.Application;
 import ru.rubiconepro.study.Modules.Base.Base;
 import ru.rubiconepro.study.Modules.NoteBook.Model.NoteWrapper;
 import ru.rubiconepro.study.Modules.NoteBook.Model.NotesModel;
@@ -85,6 +88,7 @@ public class NoteBook extends Base {
 
     protected void storeResponce(byte[] data) throws Exception {
 
+        Toast.makeText(Application.app, new String(data), Toast.LENGTH_SHORT).show();
     }
 
 }

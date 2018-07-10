@@ -17,7 +17,10 @@ import okhttp3.Request;
 import ru.rubiconepro.study.Lib.NetHTTP.Interface.IRequester;
 import ru.rubiconepro.study.Lib.NetHTTP.Model.ResponceModel;
 import ru.rubiconepro.study.Lib.NetHTTP.Requester;
+import ru.rubiconepro.study.Modules.Base.Helper.RequestHelper;
 import ru.rubiconepro.study.Modules.Base.Layout.BaseLayout;
+import ru.rubiconepro.study.Modules.NoteBook.Layout.Part;
+import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 import ru.rubiconepro.study.Modules.User.Helper;
 import ru.rubiconepro.study.R;
 
@@ -49,6 +52,7 @@ public class UserLogin extends BaseLayout implements View.OnClickListener, IRequ
 
 
     Map<String, String> mp;
+    String token = "";
 
 
     @Override
@@ -110,6 +114,12 @@ public class UserLogin extends BaseLayout implements View.OnClickListener, IRequ
 //        }
     }
 
+        public  void  startNote() {
+            String str = "http://rubiconepro.fvds.ru/web/api/RNote.php";
+            new RequestHelper(this, str, NoteBook.instance,
+                    new Intent(this, Part.class))
+                    .exec();
+        }
     @Override
     public void RequestDone(ResponceModel model) {
         JSONObject obj = null;
@@ -130,6 +140,7 @@ public class UserLogin extends BaseLayout implements View.OnClickListener, IRequ
             errorID = obj.getInt("ErrorID");
             errorDesc = obj.getString("ErrorDescription");
             data = obj.getString("Data");
+            token = data;
         } catch (Exception ex) {
             ex.printStackTrace();
 
@@ -145,6 +156,7 @@ public class UserLogin extends BaseLayout implements View.OnClickListener, IRequ
         Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
 
 
+        startNote();
     }
 
     @Override

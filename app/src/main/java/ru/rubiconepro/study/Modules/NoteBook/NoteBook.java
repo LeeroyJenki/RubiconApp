@@ -1,5 +1,8 @@
 package ru.rubiconepro.study.Modules.NoteBook;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +87,14 @@ public class NoteBook extends Base {
 
 
     protected void storeResponce(byte[] data) throws Exception {
+        JSONObject object = new JSONObject(new String(data));
+        JSONArray arr = object.getJSONArray("Data");
 
+        for (int i = 0; i < arr.length(); i++) {
+            JSONObject obj = arr.getJSONObject(i);
+
+            addPart(obj.getString("name"));
+        }
     }
 
 }

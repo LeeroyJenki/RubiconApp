@@ -1,11 +1,21 @@
 package ru.rubiconepro.study.Modules.User.Layout;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import okhttp3.FormBody;
+import okhttp3.Request;
+import ru.rubiconepro.study.Application;
+import ru.rubiconepro.study.Lib.NetHTTP.Interface.IRequester;
+import ru.rubiconepro.study.Lib.NetHTTP.Model.ResponceModel;
+import ru.rubiconepro.study.Lib.NetHTTP.Requester;
+import ru.rubiconepro.study.MainActivity;
 import ru.rubiconepro.study.Modules.Base.Layout.BaseLayout;
 import ru.rubiconepro.study.Modules.User.Helper;
 import ru.rubiconepro.study.R;
@@ -44,7 +54,7 @@ import ru.rubiconepro.study.R;
  * Проверка E-Mail на уникальность
  */
 
-public class UserRegister extends BaseLayout implements View.OnClickListener {
+public class UserRegister extends BaseLayout implements View.OnClickListener, IRequester {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +100,64 @@ public class UserRegister extends BaseLayout implements View.OnClickListener {
             Toast.makeText(this, "Введённые Вами пароли не совпадают", Toast.LENGTH_SHORT).show();
         }
 
-        if((eml) && (Pass1.equals(PassConf))){
-            Toast.makeText(this, "Молодец", Toast.LENGTH_SHORT).show();
+//        if((eml) && (Pass1.equals(PassConf))){
+//            Toast.makeText(this, "Молодец", Toast.LENGTH_SHORT).show();
+//        }
+
+        new Requester(this).execute(
+                new Request.Builder()
+                        .url("http://rubiconepro.fvds.ru/web/api/RUser.php")
+                        .post(
+                                new FormBody.Builder()
+                                        .add("method", "register")
+                                        .add("login", email)
+                                        .add("pass", Pass1)
+                                        .build()
+                        ).build()
+        );
+    }
+
+    @Override
+    public void RequestDone(ResponceModel model) {
+        JSONObject obj = null;
+        try {
+            obj = model.asJSONObject();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            Toast.makeText(this, "Ошибка данных", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        int errorID = 0;
+        String errorDesc = "";
+        String data = "";
+
+        try {
+            errorID = obj.getInt("ErrorID");
+            errorDesc = obj.getString("ErrorDescription");
+            data = obj.getString("Data");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            Toast.makeText(this, "Ошибка данных", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (errorID != 0) {
+            Toast.makeText(this, errorDesc, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Application.Current().setUserToken(data);
+        startActivity(
+                new Intent(this, MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        );
+    }
+
+    @Override
+    public void AllDone() {
+
     }
 }

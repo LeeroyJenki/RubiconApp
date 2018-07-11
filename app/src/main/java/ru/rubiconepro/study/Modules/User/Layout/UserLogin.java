@@ -14,9 +14,11 @@ import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.Request;
+import ru.rubiconepro.study.Application;
 import ru.rubiconepro.study.Lib.NetHTTP.Interface.IRequester;
 import ru.rubiconepro.study.Lib.NetHTTP.Model.ResponceModel;
 import ru.rubiconepro.study.Lib.NetHTTP.Requester;
+import ru.rubiconepro.study.MainActivity;
 import ru.rubiconepro.study.Modules.Base.Layout.BaseLayout;
 import ru.rubiconepro.study.Modules.User.Helper;
 import ru.rubiconepro.study.R;
@@ -92,22 +94,6 @@ public class UserLogin extends BaseLayout implements View.OnClickListener, IRequ
                         .build()
                 ).build()
         );
-
-//        Boolean eml;
-//
-//        String email1 = "admin@mail.com";
-//        String password1 = "12345";
-//
-//
-//
-//        eml = Helper.isEmailValid(email);
-//
-//       // String f =  mp.get("admin@mail.com");
-//        if((eml && email.equals(email1)) && (password.equals(password1))){
-//            Toast.makeText(this, "YOU ARE IN :D", Toast.LENGTH_SHORT).show();
-//        } else{
-//            Toast.makeText(this, "INCORRECT PASSWORD OR EMAIL", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     @Override
@@ -142,9 +128,11 @@ public class UserLogin extends BaseLayout implements View.OnClickListener, IRequ
             return;
         }
 
-        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
-
-
+        Application.Current().setUserToken(data);
+        startActivity(
+                new Intent(this, MainActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        );
     }
 
     @Override

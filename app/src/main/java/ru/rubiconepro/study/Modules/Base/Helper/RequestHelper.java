@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import java.util.Map;
+
+import okhttp3.FormBody;
 import okhttp3.Request;
 import ru.rubiconepro.study.Modules.Base.Base;
 import ru.rubiconepro.study.Modules.Base.Dialog.PreloadDialog;
@@ -22,6 +25,7 @@ public class RequestHelper implements IDone {
     String url;
     Base element;
     Intent nextView;
+    Map<String, String> params;
 
     PreloadDialog dialog;
 
@@ -30,6 +34,18 @@ public class RequestHelper implements IDone {
         this.url = url;
         this.element = element;
         this.nextView = nextView;
+        this.params = null;
+
+        dialog = new PreloadDialog(context);
+    }
+
+    public RequestHelper(Context context, String url, Map<String, String> params, Base element, Intent nextView) {
+        this.context = context;
+        this.url = url;
+        this.element = element;
+        this.nextView = nextView;
+        this.params = params;
+
 
         dialog = new PreloadDialog(context);
     }
@@ -37,7 +53,20 @@ public class RequestHelper implements IDone {
     public void exec () {
         Request r = null;
         try {
-            r = new Request.Builder().url(url).build();
+            Request.Builder b = new Request.Builder().url(url);
+
+            if (params != null) {
+                FormBody.Builder br = new FormBody.Builder();
+
+                for (String k: params.keySet()) {
+                    br.add(k, params.get(k));
+                }
+
+                b.post(br.build());
+            }
+
+            r = b.build();
+
         } catch (Exception ex) {
             ex.printStackTrace();
             r = null;

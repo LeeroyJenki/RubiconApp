@@ -45,13 +45,13 @@ public class Test extends BaseLayout implements IRequester {
         iv.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
 
         //Отображение PDF
-        PDFView pv = new PDFView(Application.app, null);
+        PDFView pv = new PDFView(Application.Current(), null);
         pv.fromBytes(bytes).load();
 
         //Обычная строка
         String s = new String(bytes, StandardCharsets.UTF_8);//Преобразуем набор байт в строку
 
-        TextView tv = new TextView(Application.app);
+        TextView tv = new TextView(Application.Current());
         tv.setText(s);//Отображаем
 
 

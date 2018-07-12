@@ -15,8 +15,11 @@ import ru.rubiconepro.study.Modules.NoteBook.Model.PartModel;
 public class NoteBook extends Base {
     //Создание синглтона
     public static final NoteBook instance = new NoteBook();
-    private NoteBook() { }
+    private NoteBook() {
+        model = new PartListModel();
+    }
     private PartListModel model = null;
+
 
     public PartListModel getModel() {
         //TODO Сделать Сбор данных из хранилища
@@ -28,6 +31,12 @@ public class NoteBook extends Base {
 
     public void addPart(String name) {
         model.items.add(new PartModel(name));
+    }
+
+    public void addPart(String name, Integer id) {
+        PartModel m = new PartModel(name);
+        m.setId(id);
+        model.items.add(m);
     }
 
     public void addNote(NotesModel nm, int position) {
@@ -87,6 +96,8 @@ public class NoteBook extends Base {
 
 
     protected void storeResponce(byte[] data) throws Exception {
+        model = new PartListModel();
+
         JSONObject object = new JSONObject(new String(data));
         JSONArray arr = object.getJSONArray("Data");
 

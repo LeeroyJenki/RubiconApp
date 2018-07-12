@@ -27,6 +27,7 @@ public class NoteBook extends Base {
     }
 
     public void addPart(String name) {
+        if (model == null) getModel();
         model.items.add(new PartModel(name));
     }
 

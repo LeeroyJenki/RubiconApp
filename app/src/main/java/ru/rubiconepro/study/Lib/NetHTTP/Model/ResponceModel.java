@@ -34,6 +34,7 @@ public class ResponceModel {
     }
 
     public String asString() {
+
         return new String(responceBody, StandardCharsets.UTF_8);
     }
 

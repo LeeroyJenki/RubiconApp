@@ -13,6 +13,7 @@ import ru.rubiconepro.study.Modules.Base.Layout.BaseLayout;
 import ru.rubiconepro.study.Modules.NoteBook.Layout.Part;
 import ru.rubiconepro.study.Modules.NoteBook.NoteBook;
 import ru.rubiconepro.study.Modules.User.Layout.UserLogin;
+import ru.rubiconepro.study.pars.Parser;
 
 public class MainActivity extends BaseLayout implements View.OnClickListener {
 
@@ -23,6 +24,8 @@ public class MainActivity extends BaseLayout implements View.OnClickListener {
 
         Button btn = findViewById(R.id.btnNote);
         btn.setOnClickListener(this);
+        Parser parser= new Parser();
+        parser.Request();
     }
 
     @Override
